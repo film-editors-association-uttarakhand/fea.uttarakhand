@@ -111,7 +111,7 @@ const memberProfiles = {
     "Sarvesh Kushwaha": {
         role: "Executive Director / Senior Editor",
         skills: ["Film Editing", "VFX Supervision", "Cinematics"],
-        awards: "🏆 Best Video Editor 2025, 🏆 Master of Cuts 2025, 🏆 Best Video Editor 2024",
+        awards: "🏆 Best Video Editor 2025, 🏆 Master of VFX 2025, 🏆 Best Video Editor 2024",
         bio: "Sarvesh stands as the senior-most video editor of the Film Editor's Association, bringing unparalleled expertise and creative vision to the post-production industry of Uttarakhand. With an extensive and celebrated background in editing high-end feature films, his command over the editing suite has set the benchmark for regional cinematic storytelling. Beyond raw editing, Sarvesh is a master of VFX supervision and complex cinematics, seamlessly blending visual effects with live-action footage to create breathtaking visual narratives. As the Executive Director of the Video Editing wing, he oversees the technical curriculum, mentors the next generation of editors, and ensures that every major project meets global industry standards. His profound understanding of pacing, rhythm, and structural storytelling makes him a cornerstone of the FEA."
     },
     "Deepak": {
