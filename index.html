@@ -3,300 +3,737 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FEA Uttarakhand</title>
-    <link rel="stylesheet" href="style.css">
+    <title>FEA Workstation | Official</title>
+    <style>
+        /* =========================================
+           NLE WORKSPACE THEME (PREMIERE / AE STYLE)
+           ========================================= */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;700&display=swap');
+
+        :root {
+            --bg-base: #0f0f11;       /* Deep interface black */
+            --bg-panel: #18181b;      /* Dark gray panels */
+            --bg-hover: #27272a;      /* Hover state */
+            --border-color: #3f3f46;  /* Panel borders */
+            --text-main: #e4e4e7;
+            --text-muted: #a1a1aa;
+            
+            /* Workspace Accents */
+            --accent-video: #00f0ff;  /* Cyan */
+            --accent-gfx: #b53cff;    /* Purple */
+            --accent-audio: #10b981;  /* Green */
+            --accent-red: #f43f5e;    /* Record/Alert Red */
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        /* Custom Scrollbar - Editing Style */
+        * { scrollbar-width: thin; scrollbar-color: var(--border-color) var(--bg-base); }
+        ::-webkit-scrollbar { width: 10px; height: 10px; }
+        ::-webkit-scrollbar-track { background: var(--bg-base); border-left: 1px solid var(--border-color); }
+        ::-webkit-scrollbar-thumb { background: #52525b; border-radius: 0; }
+        ::-webkit-scrollbar-thumb:hover { background: #71717a; }
+
+        body { 
+            background-color: var(--bg-base); 
+            color: var(--text-main); 
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6; 
+            overflow-x: hidden; 
+        }
+
+        /* Monospace utility for technical data */
+        .mono { font-family: 'JetBrains Mono', monospace; }
+        .highlight { color: var(--accent-video); font-weight: 800; }
+
+        /* Crosshair Custom Cursor */
+        body, a, button, .card, .about-box, .profile-trigger { cursor: crosshair !important; }
+        @media (pointer: coarse) { body, a, button, .card, .about-box, .profile-trigger { cursor: auto !important; } }
+
+        /* SOFTWARE MENU HEADER */
+        header { 
+            background: #121214; 
+            border-bottom: 1px solid var(--border-color); 
+            padding: 8px 2%; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            position: sticky; 
+            top: 0; 
+            z-index: 1000; 
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+        }
+        .software-menu { display: flex; gap: 20px; color: var(--text-muted); }
+        .software-menu span { cursor: crosshair; }
+        .software-menu span:hover { color: var(--text-main); background: var(--bg-hover); padding: 0 4px; border-radius: 2px;}
+        
+        .nav-links { list-style: none; display: flex; gap: 25px; align-items: center; }
+        .nav-links a { color: var(--text-muted); text-decoration: none; text-transform: uppercase; font-weight: 700; transition: 0.2s; letter-spacing: 1px; }
+        .nav-links a:hover, .nav-links a.active { color: var(--accent-video); }
+        
+        .workspace-label { background: var(--accent-video); color: #000; padding: 2px 8px; font-weight: bold; border-radius: 2px; }
+
+        /* PLAYBACK MONITOR HERO */
+        .hero { 
+            position: relative; 
+            border-bottom: 1px solid var(--border-color); 
+            background: var(--bg-panel);
+            padding: 60px 20px 80px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .hero-video-wrapper {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0;
+            overflow: hidden; opacity: 0.4; filter: grayscale(80%) contrast(120%);
+        }
+        .hero-video-wrapper video { width: 100%; height: 100%; object-fit: cover; }
+        
+        .hero-ui-overlay {
+            position: absolute; top: 20px; left: 20px; right: 20px; bottom: 20px;
+            border: 1px dashed var(--border-color);
+            z-index: 1; pointer-events: none;
+        }
+        .timecode-display {
+            position: absolute; top: -10px; left: 20px; background: var(--bg-base);
+            padding: 2px 10px; color: var(--accent-video); font-family: 'JetBrains Mono'; font-size: 1.2rem;
+            border: 1px solid var(--border-color);
+        }
+        .rec-indicator {
+            position: absolute; top: -10px; right: 20px; background: var(--bg-base);
+            padding: 2px 10px; color: var(--accent-red); font-family: 'JetBrains Mono'; font-weight: bold;
+            border: 1px solid var(--border-color); display: flex; align-items: center; gap: 8px;
+        }
+        .rec-dot { width: 10px; height: 10px; background: var(--accent-red); border-radius: 50%; animation: blink 1s infinite; }
+        @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0; } 100% { opacity: 1; } }
+
+        .hero-content { position: relative; z-index: 2; text-align: center; max-width: 1000px; margin-top: 40px;}
+        .hero h1 { font-size: 4rem; text-transform: uppercase; font-weight: 800; letter-spacing: -2px; margin-bottom: 10px; color: #fff; }
+        .hero h2 { font-size: 1.5rem; color: var(--text-muted); letter-spacing: 10px; text-transform: uppercase; margin-bottom: 40px; font-family: 'JetBrains Mono'; }
+
+        /* ABOUT BOXES (Project Settings Style) */
+        .about-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 15px; margin-top: 40px;}
+        .about-box { 
+            background: var(--bg-base); border: 1px solid var(--border-color); 
+            padding: 25px; text-align: left; transition: 0.2s; position: relative;
+        }
+        .about-box:hover { border-color: var(--accent-video); background: #121215; }
+        .about-box::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--border-color); transition: 0.2s; }
+        .about-box:hover::before { background: var(--accent-video); }
+        .about-box h3 { color: #fff; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; font-family: 'JetBrains Mono'; }
+        .about-box p { font-size: 0.85rem; color: var(--text-muted); }
+
+        /* SECTIONS & PANELS */
+        .department-section { padding: 60px 2%; border-bottom: 1px solid var(--border-color); }
+        .alt-bg { background: var(--bg-panel); }
+        
+        .panel-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 30px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px; }
+        .panel-header h2 { font-size: 1.5rem; text-transform: uppercase; font-weight: 800; display: flex; align-items: center; gap: 10px; }
+        .panel-header h2::before { content: '▼'; font-size: 0.8rem; color: var(--text-muted); }
+        .panel-meta { font-family: 'JetBrains Mono'; font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; }
+
+        /* TIMELINE CLIP CARDS */
+        .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 10px; }
+        .card { 
+            background: var(--bg-base); border: 1px solid var(--border-color); 
+            padding: 20px; position: relative; display: flex; flex-direction: column;
+            transition: 0.2s;
+        }
+        /* Clip color coding */
+        .committee-clip { border-left: 6px solid #fbbf24; }
+        .video-clip { border-left: 6px solid var(--accent-video); }
+        .gfx-clip { border-left: 6px solid var(--accent-gfx); }
+        
+        .card:hover { background: var(--bg-hover); transform: translateX(5px); }
+        .card h3 { font-family: 'JetBrains Mono'; font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; margin-bottom: 5px; }
+        .card p { font-size: 1.2rem; font-weight: 700; color: #fff; }
+        
+        /* PREMIUM MASTERMINDS (Folder Expansion Style) */
+        .premium-bg { background: #0a0a0c; }
+        .mastermind-card { 
+            border-left: 6px solid #d4af37; background: #121215; cursor: crosshair; 
+            padding-bottom: 15px;
+        }
+        .mastermind-card:hover { border-color: #fbbf24; }
+        .mm-tag { font-family: 'JetBrains Mono'; font-size: 0.65rem; color: #d4af37; background: rgba(212, 175, 55, 0.1); padding: 2px 6px; border-radius: 2px; margin-bottom: 10px; display: inline-block; text-transform: uppercase; border: 1px solid rgba(212, 175, 55, 0.3);}
+        
+        .mm-desc { 
+            font-size: 0.85rem; color: #a1a1aa; line-height: 1.5; text-align: left;
+            max-height: 0; opacity: 0; overflow: hidden; 
+            transition: max-height 0.4s ease, opacity 0.3s ease, margin 0.3s ease; 
+        }
+        .mastermind-card.expanded .mm-desc { max-height: 500px; opacity: 1; margin-top: 15px; padding-top: 15px; border-top: 1px dashed var(--border-color); }
+        
+        .mm-expand-btn {
+            background: transparent; border: 1px solid var(--border-color); color: var(--text-muted);
+            padding: 4px 10px; font-family: 'JetBrains Mono'; font-size: 0.7rem; text-transform: uppercase;
+            cursor: crosshair; align-self: flex-start; margin-top: 15px; transition: 0.2s;
+        }
+        .mastermind-card:hover .mm-expand-btn { border-color: #d4af37; color: #d4af37; }
+        .mastermind-card.expanded .mm-expand-btn { background: #d4af37; color: #000; }
+
+        /* KEYFRAME EVENTS TIMELINE */
+        .events-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+        .timeline-track { position: relative; padding-left: 30px; border-left: 2px solid var(--border-color); }
+        .event-item { position: relative; margin-bottom: 30px; padding: 15px; background: var(--bg-base); border: 1px solid var(--border-color); transition: 0.2s; }
+        
+        /* The Diamond Keyframe */
+        .event-item::before {
+            content: ''; position: absolute; left: -37px; top: 15px;
+            width: 12px; height: 12px; background: var(--bg-base); border: 2px solid var(--text-muted);
+            transform: rotate(45deg); transition: 0.2s;
+        }
+        .event-item:hover { border-color: var(--accent-video); }
+        .event-item:hover::before { background: var(--accent-video); border-color: var(--accent-video); box-shadow: 0 0 10px var(--accent-video); }
+        
+        .event-date { font-family: 'JetBrains Mono'; font-size: 0.75rem; color: var(--accent-video); display: block; margin-bottom: 5px; }
+        .event-name { font-size: 1.1rem; font-weight: 700; color: #fff; margin-bottom: 5px; }
+        .event-desc { font-size: 0.85rem; color: var(--text-muted); }
+
+        /* ASSET BIN CERTIFICATIONS */
+        .cert-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 10px; }
+        .cert-card { background: var(--bg-panel); border: 1px solid var(--border-color); padding: 15px; display: flex; flex-direction: column; transition: 0.2s; }
+        .cert-card:hover { background: var(--bg-hover); border-color: var(--text-muted); }
+        .cert-meta { font-family: 'JetBrains Mono'; font-size: 0.65rem; color: var(--text-muted); border-bottom: 1px solid var(--border-color); padding-bottom: 8px; margin-bottom: 8px; }
+        .cert-card h4 { font-size: 0.95rem; color: #fff; font-weight: 600; margin-bottom: 8px; }
+        .cert-desc { font-size: 0.8rem; color: var(--text-muted); line-height: 1.4; }
+        
+        /* Elite Certs */
+        .cert-card.elite { border-top: 3px solid #d4af37; background: #151410; }
+
+        /* MODALS (Settings Window Style) */
+        .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 2000; display: flex; justify-content: center; align-items: center; opacity: 0; pointer-events: none; transition: 0.2s; padding: 20px;}
+        .modal-overlay.active { opacity: 1; pointer-events: all; }
+        .modal-content { 
+            background: var(--bg-panel); border: 1px solid var(--border-color); 
+            width: 100%; max-width: 600px; position: relative; 
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+            transform: scale(0.98); transition: 0.2s;
+        }
+        .modal-overlay.active .modal-content { transform: scale(1); }
+        
+        /* Modal Window Bar */
+        .modal-window-bar { background: var(--bg-base); padding: 8px 15px; display: flex; justify-content: space-between; border-bottom: 1px solid var(--border-color); font-family: 'JetBrains Mono'; font-size: 0.75rem; color: var(--text-muted); }
+        .close-btn { color: var(--text-muted); cursor: crosshair; font-weight: bold; }
+        .close-btn:hover { color: var(--accent-red); }
+        
+        .modal-body { padding: 30px; }
+        .modal-header h2 { font-size: 1.8rem; color: #fff; margin-bottom: 5px; font-weight: 800; text-transform: uppercase; }
+        .modal-role-tag { font-family: 'JetBrains Mono'; font-size: 0.8rem; color: var(--accent-video); margin-bottom: 20px; display: block; }
+        .main-desc { font-size: 0.95rem; color: #d1d5db; line-height: 1.6; margin-bottom: 20px; }
+        
+        .profile-skills { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 15px; margin-bottom: 20px;}
+        .profile-skills span { background: var(--bg-base); color: var(--text-muted); font-family: 'JetBrains Mono'; font-size: 0.7rem; padding: 4px 8px; border: 1px solid var(--border-color); }
+
+        /* FADE UP ANIMATIONS */
+        .fade-up { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
+        .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+        footer { text-align: center; padding: 30px; border-top: 1px solid var(--border-color); font-family: 'JetBrains Mono'; font-size: 0.75rem; color: var(--text-muted); background: var(--bg-base); }
+
+        @media (max-width: 768px) {
+            header { flex-direction: column; gap: 10px; }
+            .software-menu { display: none; }
+            .hero h1 { font-size: 2.5rem; }
+            .events-layout { grid-template-columns: 1fr; }
+            .about-grid, .grid-container, .cert-grid { grid-template-columns: 1fr; }
+            .hero-ui-overlay { display: none; }
+        }
+    </style>
 </head>
 <body>
-    <!-- Standardized Navigation with Clickable Logo & Masterminds Tab -->
+
+    <!-- SOFTWARE MENU HEADER -->
     <header>
-        <a href="index.html" class="logo-link"><div class="logo"><span class="highlight">FEA</span> UTTARAKHAND</div></a>
+        <div class="software-menu">
+            <span>File</span>
+            <span>Edit</span>
+            <span>Composition</span>
+            <span>Layer</span>
+            <span>Window</span>
+            <span>Help</span>
+        </div>
         <nav>
             <ul class="nav-links">
-                <li><a href="index.html" class="active">Home</a></li>
-                <li><a href="#" class="about-trigger" data-type="intro">About Us</a></li>
-                <li><a href="index.html#masterminds">Masterminds</a></li>
-                <li><a href="awards.html">Awards</a></li>
-                <li><a href="certifications.html">Certifications</a></li>
-                <li><a href="events.html">Events</a></li>
+                <li><a href="#home">Project</a></li>
+                <li><a href="#masterminds">Masterminds</a></li>
+                <li><a href="#awards">Render Queue</a></li>
+                <li><a href="#events">Timeline</a></li>
+                <li><span class="workspace-label">WORKSPACE: FEA_PRO</span></li>
             </ul>
         </nav>
     </header>
 
-    <!-- Hero / About Section -->
-    <section class="hero">
-        <div class="hero-content">
-            <h1>Film Editor's Association</h1>
-            <h2>Uttarakhand</h2>
-            <div class="badge">Estd. 2021</div>
-
-            <!-- Interactive About Boxes (Clickable) -->
-            <div class="about-grid">
-                <div class="about-box intro-tab about-trigger" data-type="intro">
-                    <h3>About FEA Uttarakhand</h3>
-                    <p>Formed in 2021, the Film Editor's Association (FEA) is the premier collective representing the backbone of post-production...</p>
-                </div>
-                <div class="about-box about-trigger" data-type="mission">
-                    <h3>Our Mission</h3>
-                    <p>To empower post-production artists through unity, ensuring fair compensation and protection...</p>
-                </div>
-                <div class="about-box about-trigger" data-type="vision">
-                    <h3>Our Vision</h3>
-                    <p>To establish Uttarakhand as a premier hub for world-class post-production and digital art...</p>
-                </div>
-                <div class="about-box about-trigger" data-type="activities">
-                    <h3>Core Activities</h3>
-                    <p>We host advanced software workshops, conduct portfolio reviews, and organize awards...</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Core Committee Section -->
-    <section id="committee" class="department-section">
-        <div class="section-header">
-            <h2>Core Committee</h2>
-            <p style="color: var(--text-muted); margin-top: 5px;">Click on any member to view their full profile.</p>
-            <div class="divider"></div>
-        </div>
-        <div class="grid-container">
-            <div class="card profile-trigger" data-member="Narendra Negi"><h3>President</h3><p>Narendra Negi</p></div>
-            <div class="card profile-trigger" data-member="Ronish"><h3>Vice President</h3><p>Ronish</p></div>
-            <div class="card profile-trigger" data-member="Sumit"><h3>Secretary</h3><p>Sumit</p></div>
-            <div class="card profile-trigger" data-member="Hemchand Pandey"><h3>Joint Secretary</h3><p>Hemchand Pandey</p></div>
-            <div class="card profile-trigger" data-member="Inder Singh"><h3>Treasurer</h3><p>Inder Singh</p></div>
-            <div class="card profile-trigger" data-member="Pankaj Sharma"><h3>CTO / IT Head</h3><p>Pankaj Sharma</p></div>
-        </div>
-    </section>
-
-    <!-- Video Editing Department -->
-    <section id="video-editing" class="department-section alt-bg">
-        <div class="section-header">
-            <h2>1. Video Editing</h2>
-            <div class="divider"></div>
-        </div>
-        
-        <!-- Video Editing Image Banner -->
-        <div class="department-banner">
-            <img src="https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80" alt="Video Editing Suite" class="dept-image">
-            <div class="banner-overlay">
-                <h3>The Editing Suite</h3>
-                <p>Where the final story is sculpted.</p>
-            </div>
-        </div>
-
-        <div class="grid-container">
-            <div class="card highlight-card profile-trigger" data-member="Sarvesh Kushwaha"><h3>Executive Director</h3><p>Sarvesh Kushwaha</p></div>
-            <div class="card profile-trigger" data-member="Deepak"><h3>Post-Production Supervisor</h3><p>Deepak</p></div>
-            <div class="card profile-trigger" data-member="Niharika"><h3>Associate Editor</h3><p>Niharika</p></div>
-            <div class="card profile-trigger" data-member="Payal Rawat"><h3>Post-Producer</h3><p>Payal Rawat</p></div>
-            <div class="card profile-trigger" data-member="Varun"><h3>Project Coordinator</h3><p>Varun</p></div>
-            <div class="card profile-trigger" data-member="Pranit Bisht"><h3>Resource Person</h3><p>Pranit Bisht</p></div>
-            <div class="card profile-trigger" data-member="Prerna"><h3>Colorist / DI</h3><p>Prerna</p></div>
-            <div class="card profile-trigger" data-member="Sarthak"><h3>Cinematics Supervisor</h3><p>Sarthak</p></div>
-            <div class="card profile-trigger" data-member="Aryan"><h3>GFX Supervisor</h3><p>Aryan</p></div>
-            <div class="card profile-trigger" data-member="Mallika Arora"><h3>SFX Supervisor</h3><p>Mallika Arora</p></div>
-            <div class="card profile-trigger" data-member="Sunita Dandriyal"><h3>VFX Supervisor</h3><p>Sunita Dandriyal</p></div>
-            <div class="card profile-trigger" data-member="Nandini Nautiyal"><h3>Supervising Editor</h3><p>Nandini Nautiyal</p></div>
-            <div class="card profile-trigger" data-member="Neha Sharma"><h3>Assistant Editor</h3><p>Neha Sharma</p></div>
-        </div>
-    </section>
-
-    <!-- Graphic Designing Department -->
-    <section id="graphic-design" class="department-section">
-        <div class="section-header">
-            <h2>2. Graphic Designing</h2>
-            <div class="divider"></div>
-        </div>
-        
-        <!-- Graphic Design Image Banner -->
-        <div class="department-banner">
-            <img src="https://images.unsplash.com/photo-1561070791-2526d30994b5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80" alt="Graphic Design Studio" class="dept-image">
-            <div class="banner-overlay">
-                <h3>The Design Canvas</h3>
-                <p>Crafting the visual identity of cinema.</p>
-            </div>
-        </div>
-
-        <div class="grid-container">
-            <div class="card highlight-card profile-trigger" data-member="Shivani Joshi"><h3>Creative Director</h3><p>Shivani Joshi</p></div>
-            <div class="card profile-trigger" data-member="Prashant"><h3>Motion Graphic Designer</h3><p>Prashant</p></div>
-            <div class="card profile-trigger" data-member="Sachin"><h3>Production Artist</h3><p>Sachin</p></div>
-            <div class="card profile-trigger" data-member="Devika Bora"><h3>Post-Production Designer</h3><p>Devika Bora</p></div>
-            <div class="card profile-trigger" data-member="Arjun Bisht"><h3>3D Motion Artist</h3><p>Arjun Bisht</p></div>
-            <div class="card profile-trigger" data-member="Priyanshi Joshi"><h3>Concept Artist</h3><p>Priyanshi Joshi</p></div>
-            <div class="card profile-trigger" data-member="Udit Sharma"><h3>Concept Artist</h3><p>Udit Sharma</p></div>
-            <div class="card profile-trigger" data-member="Divyansh"><h3>Visualizer</h3><p>Divyansh</p></div>
-            <div class="card profile-trigger" data-member="Sanyam"><h3>Associate Graphic Designer</h3><p>Sanyam</p></div>
-            <div class="card profile-trigger" data-member="Shailendra Singh"><h3>Assistant Graphic Designer</h3><p>Shailendra Singh</p></div>
-        </div>
-    </section>
-
-    <!-- Premium Masterminds Section -->
-    <section id="masterminds" class="department-section premium-bg">
-        <div class="section-header">
-            <h2 style="color: #fff; letter-spacing: 2px; text-transform: uppercase;">The Masterminds</h2>
-            <p style="color: #d4af37; font-weight: 600; letter-spacing: 2px; margin-top: 10px; text-transform: uppercase;">The Architects of FEA Uttarakhand</p>
-            <div class="divider" style="background: linear-gradient(90deg, #d4af37, transparent); width: 100px; margin: 15px auto;"></div>
-        </div>
-
-        <div class="premium-lore-box">
-            <p>We often see the final cinematic masterpiece, but rarely the architects who bleed in the shadows to build it.</p>
-            <p>The Film Editor's Association did not just happen. It was forged through late nights, relentless dedication, and the pure passion of these legendary creators who united a fragmented industry.</p>
-            <p>Without their unmatched technical mastery and profound love for the craft, this 8,000+ strong empire would simply not exist. They are the ultimate Masterminds.</p>
-        </div>
-        
-        <div class="grid-container">
-            <div class="card mastermind-card" data-member="Sarvesh Kushwaha">
-                <span class="mm-tag">Visionary & The Ultimate of 2024, 2025</span>
-                <h3>Executive Director</h3><p>Sarvesh Kushwaha</p>
-                <div class="mm-desc">
-                    The visionary narrative architect setting global standards for regional cinema. 
-                    He seamlessly blends complex VFX with deeply emotional storytelling. 
-                    His mastery over the timeline elevates every cut into a cinematic masterpiece. 
-                    A true pioneer shaping the future of Uttarakhand's post-production.
-                </div>
+    <!-- MAIN HOME SECTION -->
+    <div id="home">
+        <!-- PLAYBACK MONITOR HERO -->
+        <section class="hero fade-up">
+            <div class="hero-video-wrapper">
+                <video autoplay muted loop playsinline>
+                    <source src="https://assets.mixkit.co/videos/preview/mixkit-video-editor-working-on-a-project-at-night-42618-large.mp4" type="video/mp4">
+                </video>
             </div>
             
-            <div class="card mastermind-card" data-member="Shivani Joshi">
-                <span class="mm-tag">Design Core</span>
+            <div class="hero-ui-overlay">
+                <div class="timecode-display" id="live-timecode">00:00:00:00</div>
+                <div class="rec-indicator"><div class="rec-dot"></div> LIVE</div>
+            </div>
+            
+            <div class="hero-content">
+                <h1>Film Editor's Association</h1>
+                <h2>Uttarakhand</h2>
+                <div class="badge mono">SEQ: v2026.1 | RES: 4K UNCOMPRESSED</div>
+
+                <div class="about-grid">
+                    <div class="about-box about-trigger" data-type="intro">
+                        <h3>[01] System Overview</h3>
+                        <p>Established in 2021. The central processing unit for Uttarakhand's post-production industry...</p>
+                    </div>
+                    <div class="about-box about-trigger" data-type="mission">
+                        <h3>[02] Core Processing</h3>
+                        <p>Empowering post-production artists through unity, ensuring fair compensation and protection...</p>
+                    </div>
+                    <div class="about-box about-trigger" data-type="activities">
+                        <h3>[03] Active Tasks</h3>
+                        <p>Advanced software workflows, node-based rendering reviews, and regional creative awards...</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Core Committee Section -->
+        <section id="committee" class="department-section">
+            <div class="panel-header fade-up">
+                <h2>Bin: Core_Committee_Members</h2>
+                <span class="panel-meta">6 Items Selected</span>
+            </div>
+            <div class="grid-container">
+                <div class="card committee-clip fade-up profile-trigger" data-member="Narendra Negi"><h3>President</h3><p>Narendra Negi</p></div>
+                <div class="card committee-clip fade-up profile-trigger" data-member="Ronish"><h3>Vice President</h3><p>Ronish</p></div>
+                <div class="card committee-clip fade-up profile-trigger" data-member="Sumit"><h3>Secretary</h3><p>Sumit</p></div>
+                <div class="card committee-clip fade-up profile-trigger" data-member="Hemchand Pandey"><h3>Joint Secretary</h3><p>Hemchand Pandey</p></div>
+                <div class="card committee-clip fade-up profile-trigger" data-member="Inder Singh"><h3>Treasurer</h3><p>Inder Singh</p></div>
+                <div class="card committee-clip fade-up profile-trigger" data-member="Pankaj Sharma"><h3>CTO / IT Head</h3><p>Pankaj Sharma</p></div>
+            </div>
+        </section>
+
+        <!-- Video Editing Department -->
+        <section id="video-editing" class="department-section alt-bg">
+            <div class="panel-header fade-up">
+                <h2 style="color: var(--accent-video);">Track V1: Video_Editing_Dept</h2>
+                <span class="panel-meta">13 Clips Mounted</span>
+            </div>
+            <div class="grid-container">
+                <div class="card video-clip fade-up profile-trigger" data-member="Sarvesh Kushwaha"><h3>Executive Director</h3><p>Sarvesh Kushwaha</p></div>
+                <div class="card video-clip fade-up profile-trigger" data-member="Deepak"><h3>Post-Production Supervisor</h3><p>Deepak</p></div>
+                <div class="card video-clip fade-up profile-trigger" data-member="Niharika"><h3>Associate Editor</h3><p>Niharika</p></div>
+                <div class="card video-clip fade-up profile-trigger" data-member="Payal Rawat"><h3>Post-Producer</h3><p>Payal Rawat</p></div>
+                <div class="card video-clip fade-up profile-trigger" data-member="Varun"><h3>Project Coordinator</h3><p>Varun</p></div>
+                <div class="card video-clip fade-up profile-trigger" data-member="Pranit Bisht"><h3>Resource Person</h3><p>Pranit Bisht</p></div>
+                <div class="card video-clip fade-up profile-trigger" data-member="Prerna"><h3>Colorist / DI</h3><p>Prerna</p></div>
+                <div class="card video-clip fade-up profile-trigger" data-member="Sarthak"><h3>Cinematics Supervisor</h3><p>Sarthak</p></div>
+                <div class="card video-clip fade-up profile-trigger" data-member="Aryan"><h3>GFX Supervisor</h3><p>Aryan</p></div>
+                <div class="card video-clip fade-up profile-trigger" data-member="Mallika Arora"><h3>SFX Supervisor</h3><p>Mallika Arora</p></div>
+                <div class="card video-clip fade-up profile-trigger" data-member="Sunita Dandriyal"><h3>VFX Supervisor</h3><p>Sunita Dandriyal</p></div>
+                <div class="card video-clip fade-up profile-trigger" data-member="Nandini Nautiyal"><h3>Supervising Editor</h3><p>Nandini Nautiyal</p></div>
+                <div class="card video-clip fade-up profile-trigger" data-member="Neha Sharma"><h3>Assistant Editor</h3><p>Neha Sharma</p></div>
+            </div>
+        </section>
+
+        <!-- Graphic Designing Department -->
+        <section id="graphic-design" class="department-section">
+            <div class="panel-header fade-up">
+                <h2 style="color: var(--accent-gfx);">Track V2: GFX_Design_Dept</h2>
+                <span class="panel-meta">10 Graphics Rendered</span>
+            </div>
+            <div class="grid-container">
+                <div class="card gfx-clip fade-up profile-trigger" data-member="Shivani Joshi"><h3>Creative Director</h3><p>Shivani Joshi</p></div>
+                <div class="card gfx-clip fade-up profile-trigger" data-member="Prashant"><h3>Motion Graphic Designer</h3><p>Prashant</p></div>
+                <div class="card gfx-clip fade-up profile-trigger" data-member="Sachin"><h3>Production Artist</h3><p>Sachin</p></div>
+                <div class="card gfx-clip fade-up profile-trigger" data-member="Devika Bora"><h3>Post-Production Designer</h3><p>Devika Bora</p></div>
+                <div class="card gfx-clip fade-up profile-trigger" data-member="Arjun Bisht"><h3>3D Motion Artist</h3><p>Arjun Bisht</p></div>
+                <div class="card gfx-clip fade-up profile-trigger" data-member="Priyanshi Joshi"><h3>Concept Artist</h3><p>Priyanshi Joshi</p></div>
+                <div class="card gfx-clip fade-up profile-trigger" data-member="Udit Sharma"><h3>Concept Artist</h3><p>Udit Sharma</p></div>
+                <div class="card gfx-clip fade-up profile-trigger" data-member="Divyansh"><h3>Visualizer</h3><p>Divyansh</p></div>
+                <div class="card gfx-clip fade-up profile-trigger" data-member="Sanyam"><h3>Associate Graphic Designer</h3><p>Sanyam</p></div>
+                <div class="card gfx-clip fade-up profile-trigger" data-member="Shailendra Singh"><h3>Assistant Graphic Designer</h3><p>Shailendra Singh</p></div>
+            </div>
+        </section>
+    </div>
+
+    <!-- MASTERMINDS SECTION -->
+    <section id="masterminds" class="department-section premium-bg">
+        <div class="panel-header fade-up">
+            <h2 style="color: #d4af37;">Folder: FEA_Masterminds</h2>
+            <span class="panel-meta">Restricted Access</span>
+        </div>
+
+        <div class="grid-container">
+            <!-- Mastermind Cards act like collapsable layer properties -->
+            <div class="card mastermind-card fade-up" data-member="Sarvesh Kushwaha">
+                <span class="mm-tag">Properties: Visionary</span>
+                <h3>Executive Director</h3><p>Sarvesh Kushwaha</p>
+                <div class="mm-desc">As the Executive Director steering the creative direction, he seamlessly blends complex VFX with deeply emotional storytelling. His mastery over the timeline elevates every cut into a cinematic masterpiece. A true pioneer shaping the future of Uttarakhand's post-production landscape.</div>
+                <button class="mm-expand-btn">Toggle Details</button>
+            </div>
+            
+            <div class="card mastermind-card fade-up" data-member="Shivani Joshi">
+                <span class="mm-tag">Properties: Design Core</span>
                 <h3>Creative Director</h3><p>Shivani Joshi</p>
-                <div class="mm-desc">
-                    The creative genius defining the modern visual identity of our industry. 
-                    She translates raw concepts into breathtaking, high-end cinematic branding. 
-                    Her eye for typography and color psychology is completely unmatched. 
-                    She crafts the premium digital face of Uttarakhand's finest films.
-                </div>
+                <div class="mm-desc">The creative genius defining the modern visual identity of our industry. She translates raw concepts into breathtaking, high-end cinematic branding. Her eye for typography and color psychology is completely unmatched.</div>
+                <button class="mm-expand-btn">Toggle Details</button>
             </div>
 
-            <div class="card mastermind-card" data-member="Narendra Negi">
-                <span class="mm-tag">Founder</span>
+            <div class="card mastermind-card fade-up" data-member="Narendra Negi">
+                <span class="mm-tag">Properties: Founder</span>
                 <h3>President</h3><p>Narendra Negi</p>
-                <div class="mm-desc">
-                    The founding pillar who united a fragmented industry into a powerful collective. 
-                    He established the core foundation that protects and elevates every local artist. 
-                    A mentor and visionary, he continues to guide the association's ultimate growth. 
-                    His steady leadership ensures the creative freedom of thousands.
-                </div>
+                <div class="mm-desc">The founding pillar who united a fragmented industry into a powerful collective. He established the core foundation that protects and elevates every local artist. A mentor and visionary, his steady leadership ensures creative freedom.</div>
+                <button class="mm-expand-btn">Toggle Details</button>
             </div>
 
-            <div class="card mastermind-card" data-member="Ronish">
-                <span class="mm-tag">Strategist</span>
+            <div class="card mastermind-card fade-up" data-member="Ronish">
+                <span class="mm-tag">Properties: Strategist</span>
                 <h3>Vice President</h3><p>Ronish</p>
-                <div class="mm-desc">
-                    The strategic powerhouse securing fair contracts and standardizing workflows. 
-                    He bridges the gap between raw creative talent and massive commercial success. 
-                    His operational brilliance keeps the entire association running seamlessly. 
-                    He is the ultimate shield for freelance artists across the state.
-                </div>
+                <div class="mm-desc">The strategic powerhouse securing fair contracts and standardizing workflows. He bridges the gap between raw creative talent and massive commercial success. His operational brilliance keeps the entire association running seamlessly.</div>
+                <button class="mm-expand-btn">Toggle Details</button>
             </div>
 
-            <div class="card mastermind-card" data-member="Payal Rawat">
-                <span class="mm-tag">Anchor</span>
+            <div class="card mastermind-card fade-up" data-member="Payal Rawat">
+                <span class="mm-tag">Properties: Anchor</span>
                 <h3>Post-Producer</h3><p>Payal Rawat</p>
-                <div class="mm-desc">
-                    The mastermind of logistics who turns chaotic schedules into flawless pipelines. 
-                    She protects the creative team from burnout while delivering studio projects. 
-                    Her ability to balance massive budgets and tight timelines is legendary. 
-                    She ensures every major film reaches the finish line perfectly.
-                </div>
+                <div class="mm-desc">The mastermind of logistics who turns chaotic schedules into flawless pipelines. She protects the creative team from burnout while delivering studio projects. Her ability to balance massive budgets and tight timelines is legendary.</div>
+                <button class="mm-expand-btn">Toggle Details</button>
             </div>
-
-            <div class="card mastermind-card" data-member="Niharika">
-                <span class="mm-tag">Pacesetter</span>
+            
+            <div class="card mastermind-card fade-up" data-member="Niharika">
+                <span class="mm-tag">Properties: Pacesetter</span>
                 <h3>Associate Editor</h3><p>Niharika</p>
-                <div class="mm-desc">
-                    The pacing prodigy bringing fresh, modern energy to the editing suite. 
-                    She crafts high-retention cuts that keep audiences completely mesmerized. 
-                    Her assembly speed and meticulous attention to detail are extraordinary. 
-                    She represents the brightest, fastest future of the directorate.
-                </div>
+                <div class="mm-desc">The pacing prodigy bringing fresh, modern energy to the editing suite. She crafts high-retention cuts that keep audiences completely mesmerized. Her assembly speed and meticulous attention to detail are extraordinary.</div>
+                <button class="mm-expand-btn">Toggle Details</button>
             </div>
-
-            <div class="card mastermind-card" data-member="Sarthak">
-                <span class="mm-tag">Guardian</span>
+            
+            <div class="card mastermind-card fade-up" data-member="Sarthak">
+                <span class="mm-tag">Properties: Guardian</span>
                 <h3>Cinematics Supervisor</h3><p>Sarthak</p>
-                <div class="mm-desc">
-                    The ultimate guardian of framing, composition, and visual continuity. 
-                    He ensures the director's vision remains pristine through the final render. 
-                    His deep understanding of spatial dynamics saves countless projects. 
-                    A true master of the cinematic eye who catches what others miss.
-                </div>
-            </div>
-
-            <div class="card mastermind-card" data-member="Prashant">
-                <span class="mm-tag">Pioneer</span>
-                <h3>Motion Graphic Designer</h3><p>Prashant</p>
-                <div class="mm-desc">
-                    The kinetic pioneer who brings static designs to explosive, fluid life. 
-                    He crafts high-impact title sequences that define a film's energy instantly. 
-                    His keyframing mastery commands absolute and immediate audience attention. 
-                    He sets the gold standard for dynamic visual marketing in the state.
-                </div>
-            </div>
-
-            <div class="card mastermind-card" data-member="Priyanshi Joshi">
-                <span class="mm-tag">World Builder</span>
-                <h3>Concept Artist</h3><p>Priyanshi Joshi</p>
-                <div class="mm-desc">
-                    The foundational illustrator who builds breathtaking worlds from mere words. 
-                    Her digital canvases lock in the emotional tone long before cameras roll. 
-                    She paints cinematic lighting and mood with unparalleled precision. 
-                    Her original concept art is the blueprint of our greatest regional films.
-                </div>
-            </div>
-
-            <div class="card mastermind-card" data-member="Shailendra Singh">
-                <span class="mm-tag">Detail Master</span>
-                <h3>Assistant Graphic Designer</h3><p>Shailendra Singh</p>
-                <div class="mm-desc">
-                    The detail-oriented technician whose surgical precision perfects every asset. 
-                    He executes flawless vector cleanups, complex masking, and high-end retouching. 
-                    His unseen foundational work allows the senior team to push boundaries. 
-                    He is the quiet, relentless force behind our most flawless renders.
-                </div>
+                <div class="mm-desc">The ultimate guardian of framing, composition, and visual continuity. He ensures the director's vision remains pristine through the final render. His deep understanding of spatial dynamics saves countless projects.</div>
+                <button class="mm-expand-btn">Toggle Details</button>
             </div>
         </div>
     </section>
 
-    <!-- About Detail Modal -->
-    <div id="about-modal" class="modal-overlay">
-        <div class="modal-content" style="max-width: 600px; text-align: center;">
-            <span class="close-btn" id="close-about-modal">&times;</span>
-            <div class="modal-header">
-                <h2 id="about-modal-title" style="color: var(--accent-cyan); border-bottom: 1px solid var(--glass-border); padding-bottom: 15px;">Title</h2>
+    <!-- EVENTS TIMELINE SECTION -->
+    <section id="events" class="department-section">
+        <div class="panel-header fade-up">
+            <h2>Sequence: Event_Timeline</h2>
+            <span class="panel-meta">Playback: Realtime</span>
+        </div>
+
+        <div class="events-layout">
+            <div class="timeline-track">
+                <h3 class="mono fade-up" style="color: var(--text-muted); margin-bottom: 20px;">[ Upcoming_Events.seq ]</h3>
+                <div class="event-list" id="upcoming-events-list"></div>
+            </div>
+            <div class="timeline-track">
+                <h3 class="mono fade-up" style="color: var(--text-muted); margin-bottom: 20px;">[ Archived_Events.bak ]</h3>
+                <div class="event-list" id="past-events-list"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CERTIFICATIONS SECTION -->
+    <section id="certifications" class="department-section alt-bg">
+        <div class="panel-header fade-up">
+            <h2>Assets: Certifications_Bin</h2>
+            <span class="panel-meta">Total Objects: 10</span>
+        </div>
+
+        <div class="cert-grid">
+            <div class="cert-card elite fade-up">
+                <p class="cert-meta">Type: Master_Class | Node: FEA-M01</p>
+                <h4>FEA Master Post-Production Architect</h4>
+                <p class="cert-desc">Validates complete mastery over the entire post-production pipeline, from proxy generation to final theatrical DCP delivery.</p>
+            </div>
+            <div class="cert-card elite fade-up">
+                <p class="cert-meta">Type: Master_Class | Node: FEA-M02</p>
+                <h4>FEA Grandmaster of Visual Arts</h4>
+                <p class="cert-desc">The ultimate credential for creative direction, verifying unparalleled skill in cinematic branding, typography, and concept art.</p>
+            </div>
+            <div class="cert-card elite fade-up">
+                <p class="cert-meta">Type: Master_Class | Node: FEA-M03</p>
+                <h4>FEA Certified Studio Lead</h4>
+                <p class="cert-desc">Authorizes the holder to manage and supervise multi-editor server environments and massive studio budgets.</p>
+            </div>
+            
+            <div class="cert-card fade-up" style="border-top: 3px solid var(--accent-video);">
+                <p class="cert-meta">Type: Video | Proxy: 4K_HQ</p>
+                <h4>Certified Offline Editor</h4>
+                <p class="cert-desc">Mastery of rough assemblies, bins organization, and standard proxy workflows.</p>
+            </div>
+            <div class="cert-card fade-up" style="border-top: 3px solid var(--accent-video);">
+                <p class="cert-meta">Type: Video | Sync: MultiCam</p>
+                <h4>Multi-Cam Sync Specialist</h4>
+                <p class="cert-desc">Flawless syncing of complex multi-camera shoots and external audio.</p>
+            </div>
+            <div class="cert-card fade-up" style="border-top: 3px solid var(--accent-gfx);">
+                <p class="cert-meta">Type: GFX | Render: Vector</p>
+                <h4>Cinematic Key Art Design</h4>
+                <p class="cert-desc">Creating theatrical movie posters and high-impact billing blocks.</p>
+            </div>
+            <div class="cert-card fade-up" style="border-top: 3px solid var(--accent-gfx);">
+                <p class="cert-meta">Type: GFX | Render: 3D</p>
+                <h4>3D Title Card Animation</h4>
+                <p class="cert-desc">Using Cinema 4D/Blender for dynamic, Hollywood-style opening credit sequences.</p>
+            </div>
+            <div class="cert-card fade-up" style="border-top: 3px solid #f59e0b;">
+                <p class="cert-meta">Type: Color | Node: HDR</p>
+                <h4>DaVinci Resolve: HDR Grading</h4>
+                <p class="cert-desc">Advanced node trees, color spaces, and Dolby Vision HDR delivery standards.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- MODALS (Styled like Software Windows) -->
+    <div id="profile-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-window-bar">
+                <span>Properties Panel</span>
+                <span class="close-btn" id="close-profile-modal">✖</span>
             </div>
             <div class="modal-body">
-                <p id="about-modal-desc" class="main-desc" style="margin-top: 20px; text-align: justify; text-justify: inter-word;">Details will appear here...</p>
+                <h2 id="profile-modal-name">Name</h2>
+                <span id="profile-modal-role" class="modal-role-tag">Role</span>
+                <div class="profile-skills" id="profile-modal-skills"></div>
+                <p id="profile-modal-bio" class="main-desc">Bio will appear here...</p>
+                <div style="background: rgba(0, 0, 0, 0.5); padding: 15px; border-left: 3px solid #d4af37;">
+                    <h4 style="color: #d4af37; margin-bottom: 5px; font-family: 'JetBrains Mono'; font-size: 0.75rem;">Rendered Accolades</h4>
+                    <p id="profile-modal-awards" style="color: #fff; font-size: 0.85rem; font-family: 'JetBrains Mono';"></p>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- Profile Detail Modal with Cloudy Transition -->
-    <div id="profile-modal" class="modal-overlay cloudy-overlay">
-        <div class="modal-content cloudy-content" style="max-width: 700px;">
-            <span class="close-btn" id="close-profile-modal">&times;</span>
-            <div class="modal-header" style="text-align: center;">
-                <h2 id="profile-modal-name" style="font-size: 2.2rem; color: #fff; margin-bottom: 5px;">Name</h2>
-                <p id="profile-modal-role" style="color: var(--accent-cyan); font-weight: bold; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 20px;">Role</p>
-                <div class="profile-skills" id="profile-modal-skills">
-                    <!-- Skills injected here -->
-                </div>
+    <div id="event-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-window-bar">
+                <span>Event Inspector</span>
+                <span class="close-btn" id="close-modal">✖</span>
             </div>
             <div class="modal-body">
-                <div class="profile-divider" style="height: 1px; width: 80%; background: var(--glass-border); margin: 20px auto;"></div>
-                <p id="profile-modal-bio" class="main-desc" style="text-align: justify; font-size: 1rem; color: #c0c3cd;">Bio will appear here...</p>
-                <div style="background: rgba(0, 240, 255, 0.05); border: 1px solid rgba(0, 240, 255, 0.2); padding: 15px; border-radius: 6px; margin-top: 20px;">
-                    <h4 style="color: var(--accent-cyan); margin-bottom: 10px; text-transform: uppercase; font-size: 0.9rem;">Recent Awards</h4>
-                    <p id="profile-modal-awards" style="color: #fff; font-size: 0.9rem; line-height: 1.6;"></p>
+                <h2 id="modal-title"></h2>
+                <span id="modal-date" class="modal-role-tag" style="margin-top: 5px;"></span>
+                <p id="modal-desc" class="main-desc"></p>
+                
+                <div style="font-family: 'JetBrains Mono'; font-size: 0.8rem; background: var(--bg-base); padding: 15px; border: 1px solid var(--border-color); color: var(--text-muted);">
+                    <p style="margin-bottom: 5px;"><strong style="color: var(--text-main);">Location:</strong> <span id="modal-location"></span></p>
+                    <p style="margin-bottom: 15px;"><strong style="color: var(--text-main);">Time:</strong> <span id="modal-time"></span></p>
+                    <p style="margin-bottom: 5px;"><strong style="color: var(--accent-video);">Keyframes:</strong></p>
+                    <ul id="modal-agenda" style="list-style-type: none; padding-left: 10px; border-left: 1px dashed var(--border-color);"></ul>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="about-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-window-bar">
+                <span>System Log</span>
+                <span class="close-btn" id="close-about-modal">✖</span>
+            </div>
+            <div class="modal-body">
+                <h2 id="about-modal-title">Title</h2>
+                <p id="about-modal-desc" class="main-desc" style="margin-top: 20px;">Details will appear here...</p>
             </div>
         </div>
     </div>
 
     <footer>
-        <div class="footer-logo"><span class="highlight">FEA</span> UTTARAKHAND</div>
-        <p>&copy; 2026 Film Editor's Association. All Rights Reserved.</p>
+        <p>FEA_UTTARAKHAND_CORE_SYSTEM // BUILD_2026</p>
     </footer>
-    <script src="script.js"></script>
+
+    <!-- =========================================
+         JAVASCRIPT
+         ========================================= -->
+    <script>
+        // --- CUSTOM CURSOR & TIMECODE ---
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // Live Timecode Generator for Hero
+            const timecodeEl = document.getElementById('live-timecode');
+            let frames = 0, secs = 0, mins = 0, hours = 1;
+            setInterval(() => {
+                frames++;
+                if(frames >= 24) { frames = 0; secs++; }
+                if(secs >= 60) { secs = 0; mins++; }
+                if(mins >= 60) { mins = 0; hours++; }
+                
+                const f = frames.toString().padStart(2, '0');
+                const s = secs.toString().padStart(2, '0');
+                const m = mins.toString().padStart(2, '0');
+                const h = hours.toString().padStart(2, '0');
+                if(timecodeEl) timecodeEl.innerText = `${h}:${m}:${s}:${f}`;
+            }, 1000 / 24);
+
+            // Fade Up Observer
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+            // Smooth Scrolling
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    if(targetElement) {
+                        window.scrollTo({ top: targetElement.offsetTop - 70, behavior: 'smooth' });
+                    }
+                });
+            });
+
+            // --- EVENT GENERATION ---
+            const upcomingEvents = [
+                { date: "October 15, 2026", name: "Color Science Workshop", desc: "Advanced node tree structures.", fullDesc: "Deep dive into DaVinci Resolve HDR workflows.", time: "10:00 AM", location: "Dehradun", agenda: ["10AM - Intro", "12PM - Nodes", "2PM - Render"] },
+                { date: "November 02, 2026", name: "VFX Matchmoving", desc: "3D Camera tracking in Nuke.", fullDesc: "Integrating CGI into live-action plates.", time: "1:00 PM", location: "Online", agenda: ["1PM - Track", "3PM - Composite"] }
+            ];
+            const pastEvents = [
+                { date: "September 10, 2026", name: "Annual Creative Awards", desc: "Celebrating post-production talent.", fullDesc: "The biggest night for regional editors.", time: "6:00 PM", location: "LP Vilas", agenda: ["6PM - Red Carpet", "8PM - Awards"] },
+                { date: "August 22, 2026", name: "Graphic Design Meetup", desc: "Typography and layouts.", fullDesc: "Discussions on cinematic poster design.", time: "4:00 PM", location: "Cafe De Piccolo", agenda: ["4PM - Typography", "6PM - Networking"] }
+            ];
+
+            const upcomingContainer = document.getElementById('upcoming-events-list');
+            const pastContainer = document.getElementById('past-events-list');
+            const eventModal = document.getElementById('event-modal');
+
+            function renderEvents(container, eventsArray) {
+                eventsArray.forEach(event => {
+                    const div = document.createElement('div');
+                    div.className = 'event-item fade-up';
+                    observer.observe(div);
+                    div.innerHTML = `<span class="event-date">${event.date}</span><span class="event-name">${event.name}</span><p class="event-desc">${event.desc}</p>`;
+                    
+                    div.addEventListener('click', () => {
+                        document.getElementById('modal-date').innerText = event.date;
+                        document.getElementById('modal-title').innerText = event.name;
+                        document.getElementById('modal-time').innerText = event.time;
+                        document.getElementById('modal-location').innerText = event.location;
+                        document.getElementById('modal-desc').innerText = event.fullDesc;
+                        
+                        const agendaList = document.getElementById('modal-agenda');
+                        agendaList.innerHTML = '';
+                        event.agenda.forEach(item => { agendaList.innerHTML += `<li>${item}</li>`; });
+                        
+                        eventModal.classList.add('active');
+                    });
+                    container.appendChild(div);
+                });
+            }
+            if(upcomingContainer) renderEvents(upcomingContainer, upcomingEvents);
+            if(pastContainer) renderEvents(pastContainer, pastEvents);
+
+            document.getElementById('close-modal').addEventListener('click', () => eventModal.classList.remove('active'));
+
+            // --- MEMBER PROFILES DATA ---
+            const memberProfiles = {
+                "Sarvesh Kushwaha": { role: "Executive Director / Senior Editor", skills: ["Film Editing", "VFX Supervision", "Cinematics"], awards: "🏆 Best Video Editor 2025, 🏆 Master of Cuts 2025", bio: "As the Executive Director steering the creative direction, he seamlessly blends complex VFX with deeply emotional storytelling. His mastery over the timeline elevates every cut into a cinematic masterpiece. A true pioneer shaping the future of Uttarakhand's post-production." },
+                "Narendra Negi": { role: "President", skills: ["Leadership", "Strategy"], awards: "🏆 Lifetime Achievement 2025", bio: "The founding pillar who united a fragmented industry into a powerful collective. He established the core foundation that protects and elevates every local artist." },
+                "Ronish": { role: "Vice President", skills: ["Studio Management", "Operations"], awards: "🏆 Operational Excellence 2025", bio: "Ronish is a strategic powerhouse with a comprehensive background in commercial video production, agency relations, and studio management." },
+                "Sumit": { role: "Secretary", skills: ["Administration", "Coordination"], awards: "🏆 Administrative Pillar 2024", bio: "Sumit is the administrative pillar of the association, managing all core member communications and internal policy drafting." },
+                "Hemchand Pandey": { role: "Joint Secretary", skills: ["Coordination", "Outreach"], awards: "🏆 Regional Leadership 2025", bio: "Hemchand operates as the vital right hand to the Secretary, ensuring that the FEA’s rapidly expanding network functions seamlessly." },
+                "Inder Singh": { role: "Treasurer", skills: ["Finance", "Budgeting"], awards: "🏆 Transparency Award 2024", bio: "Inder handles all complex financial logistics for the association with absolute precision and transparency." },
+                "Pankaj Sharma": { role: "CTO / IT Head", skills: ["Cloud Architecture", "IT Security"], awards: "🏆 Tech Innovator 2025", bio: "Pankaj is the mastermind behind the FEA’s robust digital infrastructure, securing petabytes of raw footage." },
+                "Deepak": { role: "Post-Production Supervisor", skills: ["Workflow Design", "Troubleshooting"], awards: "🏆 Workflow Master 2024", bio: "Deepak is the ultimate technical troubleshooter, ensuring flawless workflows between editing, VFX, and audio mixing." },
+                "Niharika": { role: "Associate Editor", skills: ["Commercials", "Assembly"], awards: "🏆 Rising Star Editor 2025", bio: "Niharika represents the brightest emerging talent, bringing fresh, modern pacing styles to commercial edits." },
+                "Payal Rawat": { role: "Post-Producer", skills: ["Scheduling", "Producing"], awards: "🏆 Schedule Master 2025", bio: "Payal is the master of timelines, client deliverables, and post-production budgets." },
+                "Varun": { role: "Project Coordinator", skills: ["Timeline Versioning"], awards: "🏆 Timeline Manager 2025", bio: "Operating at the chaotic intersection of production and post-production, Varun ensures timelines remain perfectly organized." },
+                "Pranit Bisht": { role: "Resource Person", skills: ["Asset Management", "Plugins"], awards: "🏆 Tech Guru 2024", bio: "Pranit is the association's primary technological scout and resource manager." },
+                "Prerna": { role: "Colorist / DI", skills: ["DaVinci Resolve", "HDR"], awards: "🏆 Best Color Grade 2025", bio: "An absolute master of DaVinci Resolve, Prerna is responsible for crafting the final visual mood." },
+                "Sarthak": { role: "Cinematics Supervisor", skills: ["Composition", "Visual Flow"], awards: "🏆 Visual Storyteller 2025", bio: "Sarthak ensures that the visual framing and shot composition remain perfectly consistent." },
+                "Aryan": { role: "GFX Supervisor", skills: ["After Effects", "Motion Design"], awards: "🏆 Best Motion Graphics 2025", bio: "Aryan oversees all dynamic motion graphics, complex title sequences, and digital overlays." },
+                "Mallika Arora": { role: "SFX Supervisor", skills: ["Audio Mixing", "Foley"], awards: "🏆 Best Sound Design 2025", bio: "Mallika builds the invisible, immersive soundscapes that breathe life into the editing timeline." },
+                "Sunita Dandriyal": { role: "VFX Supervisor", skills: ["Nuke", "Compositing"], awards: "🏆 Best Visual Effects 2025", bio: "Sunita leads the highly technical visual effects team, specializing in seamless green screen compositing." },
+                "Nandini Nautiyal": { role: "Supervising Editor", skills: ["Continuity", "Narrative Structure"], awards: "🏆 Top Supervising Editor 2025", bio: "Nandini oversees the macro-level editorial timeline, ensuring emotional pacing is perfectly maintained." },
+                "Neha Sharma": { role: "Assistant Editor", skills: ["Media Management", "Proxies"], awards: "🏆 Fast Pacer Award 2024", bio: "Neha forms the crucial, highly organized foundation for the senior editing team." },
+                "Shivani Joshi": { role: "Creative Director", skills: ["Brand Identity", "Typography"], awards: "🏆 Creative Design Excellence 2025", bio: "Shivani leads the massive design wing of the FEA, setting the ultimate standard for cinematic posters." },
+                "Prashant": { role: "Motion Graphic Designer", skills: ["Animation", "Keyframing"], awards: "🏆 Best Keyframing 2025", bio: "Prashant brings static designs to explosive life through advanced keyframing and dynamic motion." },
+                "Sachin": { role: "Production Artist", skills: ["Print Optimization", "Vector Art"], awards: "🏆 Print Excellence 2025", bio: "Sachin is the vital link between the digital concept screen and the final physical print." },
+                "Devika Bora": { role: "Post-Production Designer", skills: ["Asset Curation", "Final Polish"], awards: "🏆 Design Educator 2025", bio: "Devika manages the vast design asset library and applies the absolute final polish to major designs." },
+                "Arjun Bisht": { role: "3D Motion Artist", skills: ["Cinema 4D", "Unreal Engine"], awards: "🏆 3D Innovator 2025", bio: "Arjun brilliantly bridges the gap between traditional 2D graphic design and immersive 3D virtual environments." },
+                "Priyanshi Joshi": { role: "Concept Artist", skills: ["Digital Painting", "Character Design"], awards: "🏆 Original Concept 2025", bio: "Priyanshi creates the breathtaking initial visual blueprints for projects." },
+                "Udit Sharma": { role: "Concept Artist", skills: ["Environment Art", "Matte Painting"], awards: "🏆 Best Environment Art 2025", bio: "Udit specializes in building expansive, highly detailed environments and world designs." },
+                "Divyansh": { role: "Visualizer", skills: ["Pre-Viz", "Animatics"], awards: "🏆 Best Pre-Viz 2025", bio: "Divyansh works closely with directors to generate dynamic pre-visualization animatics." },
+                "Sanyam": { role: "Associate Graphic Designer", skills: ["Social Media Assets", "Layouts"], awards: "🏆 Promising Designer 2025", bio: "Sanyam creates the rapid, high-impact supporting graphics required for modern digital marketing." },
+                "Shailendra Singh": { role: "Assistant Graphic Designer", skills: ["Retouching", "Masking"], awards: "🏆 Outstanding Support 2025", bio: "Shailendra handles the meticulous foundational tasks of the design wing, including high-end photo retouching." }
+            };
+
+            const profileModal = document.getElementById('profile-modal');
+            document.querySelectorAll('.profile-trigger').forEach(card => {
+                card.addEventListener('click', () => {
+                    const memberName = card.getAttribute('data-member');
+                    const data = memberProfiles[memberName];
+                    if(data) {
+                        document.getElementById('profile-modal-name').innerText = memberName;
+                        document.getElementById('profile-modal-role').innerText = data.role;
+                        document.getElementById('profile-modal-bio').innerText = data.bio;
+                        document.getElementById('profile-modal-awards').innerText = data.awards;
+
+                        const skillsContainer = document.getElementById('profile-modal-skills');
+                        skillsContainer.innerHTML = '';
+                        data.skills.forEach(skill => {
+                            skillsContainer.innerHTML += `<span>${skill}</span>`;
+                        });
+                        profileModal.classList.add('active');
+                    }
+                });
+            });
+            document.getElementById('close-profile-modal').addEventListener('click', () => profileModal.classList.remove('active'));
+
+            // --- ABOUT DATA ---
+            const aboutModal = document.getElementById('about-modal');
+            const aboutData = {
+                'intro': { title: '[01] System Overview', desc: 'Formed in 2021, the Film Editor\'s Association (FEA) serves as the unified voice for visual storytelling professionals, encompassing video editors, graphic designers, VFX artists, concept artists, and colorists. We actively secure the fundamental workplace rights of these artists and enforce standard baseline pay scales.' },
+                'mission': { title: '[02] Core Processing', desc: 'To empower post-production artists through unity, ensuring fair compensation, credit protection, and safe, professional working environments. We ensure their rights, contracts, and working hours are respected.' },
+                'activities': { title: '[03] Active Tasks', desc: 'We host advanced software workshops, conduct portfolio reviews, manage professional dispute resolutions, and organize the regional FEA Creative Awards.' }
+            };
+            document.querySelectorAll('.about-trigger').forEach(trigger => {
+                trigger.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const type = trigger.getAttribute('data-type');
+                    if(aboutData[type]) {
+                        document.getElementById('about-modal-title').innerText = aboutData[type].title;
+                        document.getElementById('about-modal-desc').innerText = aboutData[type].desc;
+                        aboutModal.classList.add('active');
+                    }
+                });
+            });
+            document.getElementById('close-about-modal').addEventListener('click', () => aboutModal.classList.remove('active'));
+
+            // --- MASTERMIND EXPANSION ---
+            document.querySelectorAll('.mastermind-card').forEach(card => {
+                const btn = card.querySelector('.mm-expand-btn');
+                if (btn) {
+                    btn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        document.querySelectorAll('.mastermind-card').forEach(c => {
+                            if (c !== card) {
+                                c.classList.remove('expanded');
+                                c.querySelector('.mm-expand-btn').innerText = 'Toggle Details';
+                            }
+                        });
+                        const isExpanded = card.classList.toggle('expanded');
+                        btn.innerText = isExpanded ? 'Collapse Panel' : 'Toggle Details';
+                    });
+                }
+            });
+
+        });
+    </script>
 </body>
 </html>
