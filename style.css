@@ -411,6 +411,8 @@ footer p { color: var(--text-muted); font-size: 0.9rem; letter-spacing: 0.5px;}
     border-radius: 12px;
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
     position: relative;
+    height: auto !important;
+    min-height: min-content !important;
 }
 
 .mastermind-card:hover {
@@ -429,7 +431,7 @@ footer p { color: var(--text-muted); font-size: 0.9rem; letter-spacing: 0.5px;}
 .mastermind-card p {
     font-size: 1.4rem;
     color: #fff;
-    margin-bottom: 100px;
+    margin-bottom: 10px;
 }
 
 /* Elegant Tag */
@@ -460,10 +462,12 @@ footer p { color: var(--text-muted); font-size: 0.9rem; letter-spacing: 0.5px;}
     margin-top: 15px;
     padding-top: 15px;
     border-top: 1px solid rgba(255, 255, 255, 0.05);
-    display: -webkit-box;
-    -webkit-line-clamp: 4;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+    display: block !important; 
+    overflow: visible !important;
+    -webkit-line-clamp: unset !important;
+    -webkit-box-orient: unset !important;
+    max-height: none !important;
+    opacity: 1 !important;
 }
 
 /* Mobile Responsiveness Updates */
