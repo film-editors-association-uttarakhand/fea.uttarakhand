@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Standardized Navigation with Clickable Logo -->
     <header>
         <a href="index.html" class="logo-link"><div class="logo"><span class="highlight">FEA</span> UTTARAKHAND</div></a>
         <nav>
@@ -23,14 +22,13 @@
     </header>
 
     <div class="page-header">
-        <h1>Association Events</h1>
+        <h1 style="color: #b300ff;">Association Events</h1>
         <p style="color: var(--text-muted); margin-top: 10px;">Workshops, Networking, and Galas.</p>
         <div class="divider"></div>
     </div>
 
     <section class="department-section">
         <div class="events-wrapper">
-            <!-- Upcoming Events -->
             <div class="events-column">
                 <h2 class="event-title">Upcoming Workshops & Events</h2>
                 <div class="event-list scrollable" id="upcoming-events-list">
@@ -38,7 +36,6 @@
                 </div>
             </div>
 
-            <!-- Past Events -->
             <div class="events-column">
                 <h2 class="event-title">Past Events (2023 - 2026)</h2>
                 <div class="event-list scrollable" id="past-events-list">
@@ -48,7 +45,7 @@
         </div>
     </section>
 
-    <!-- Unified Event Modal (Controlled by Javascript) -->
+    <!-- Event Popup Modal -->
     <div id="event-modal" class="modal-overlay">
         <div class="modal-content">
             <span class="close-btn" id="close-modal">&times;</span>
@@ -78,9 +75,23 @@
         </div>
     </div>
 
+    <!-- About Us Modal -->
+    <div id="about-modal" class="modal-overlay">
+        <div class="modal-content" style="text-align: center;">
+            <span class="close-btn" id="close-about-modal">&times;</span>
+            <div class="modal-header">
+                <h2 id="about-modal-title">Title</h2>
+                <div class="divider" style="margin-bottom: 20px;"></div>
+            </div>
+            <div class="modal-body">
+                <p id="about-modal-desc" class="main-desc">Details will appear here...</p>
+            </div>
+        </div>
+    </div>
+
     <footer>
         <div class="footer-logo"><span class="highlight">FEA</span> UTTARAKHAND</div>
-        <p>&copy; 2026 Film Editor's Association.</p>
+        <p>&copy; 2026 Film Editor's Association. All Rights Reserved.</p>
     </footer>
     <script src="script.js"></script>
 </body>
