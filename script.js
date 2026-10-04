@@ -75,31 +75,36 @@ const memberProfiles = {
     "Narendra Negi": {
         role: "President",
         skills: ["Leadership", "Strategy", "Directing"],
-        awards: "🏆 Lifetime Achievement 2025, 🏆 Best Leadership 2024, 🏆 FEA Founder's Award 2023",
+        awards: "🏆 Best Leadership 2025, 🏆 Best Leadership 2024, 🏆 Creative Mindset 2023",
+        experience: "15+ years",
         bio: "With over 15 years of relentless dedication to regional and national cinema, Narendra has been the ultimate guiding force behind the Uttarakhand film industry. Recognizing the fractured nature of post-production work in the state, he founded the FEA with a singular vision: to unite isolated artists, secure their fundamental workplace rights, and establish a thriving creative ecosystem. His expertise lies deeply in narrative structure and documentary filmmaking, having personally mentored dozens of young, aspiring editors across the state. Under his leadership, the association has grown from a handful of creators to a massive network of thousands. He continues to lobby for state-level recognition of post-production artists."
     },
     "Ronish": {
         role: "Vice President",
         skills: ["Studio Management", "Operations", "Client Relations"],
         awards: "🏆 Operational Excellence 2025, 🏆 Excellence in Management 2024",
+        experience: "10+ years",
         bio: "Ronish is a strategic powerhouse with a comprehensive background in commercial video production, agency relations, and studio management. He oversees the complex operational framework of FEA, ensuring that our massive freelance community has access to fair, standardized contracts and baseline pay scales. He frequently hosts state-wide business seminars focusing on client management, freelance growth, and avoiding industry burnout. His ability to negotiate with large production houses has resulted in numerous exclusive partnerships that benefit all FEA members. He is the crucial bridge connecting the creative side of the association with the business realities of the film industry."
     },
     "Sumit": {
         role: "Secretary",
         skills: ["Administration", "Coordination", "Policy"],
         awards: "🏆 Outstanding Contribution 2025, 🏆 Administrative Pillar 2024",
+        experience: "8+ years",
         bio: "Sumit is the administrative pillar of the association, managing all core member communications, internal policy drafting, and large-scale event coordination. Acting as the primary bridge between the executive committee and the 8,000+ general members, he ensures that every voice, from novice to veteran, is heard. He single-handedly organized the transition of our physical workshops to a hybrid cloud model, allowing members from remote Himalayan districts to access top-tier training. His meticulous record-keeping and dedication to dispute redressal have saved countless freelancers from unfair studio practices. He continues to streamline the onboarding process for new talent."
     },
     "Hemchand Pandey": {
         role: "Joint Secretary",
         skills: ["Coordination", "Outreach", "Member Relations"],
         awards: "🏆 Regional Leadership 2025, 🏆 Community Outreach 2024",
+        experience: "7+ years",
         bio: "Hemchand operates as the vital right hand to the Secretary, ensuring that the FEA’s rapidly expanding network functions seamlessly across all districts of Uttarakhand. With the association now boasting over 8,000 members, he directly manages state-wide communications, fast-tracks membership approvals, and oversees the establishment of regional creative hubs in Kumaon and Garhwal. His grassroots approach ensures that freelance artists in remote Himalayan towns receive the exact same educational and legal resources as those in Dehradun. By actively touring the state and conducting local grievance meetings, Hemchand bridges the gap between the executive board and independent creators, building a truly unified industry front."
     },
     "Inder Singh": {
         role: "Treasurer",
         skills: ["Finance", "Budgeting", "Logistics"],
         awards: "🏆 Financial Excellence 2025, 🏆 Transparency Award 2024",
+        experience: "7+ years",
         bio: "Inder handles all complex financial logistics for the association with absolute precision and transparency. From managing the internal funding required for state-wide technical workshops to allocating the massive budgets needed for the annual FEA awards gala, his financial acumen keeps the association thriving. He successfully secured bulk licensing deals for expensive software plugins and cloud storage, passing those savings directly down to the members. His transparent reporting style and strict auditing practices have built immense trust among both the committee and the external sponsors who fund our educational initiatives. He is the financial bedrock of the FEA."
     },
     "Pankaj Sharma": {
@@ -112,138 +117,161 @@ const memberProfiles = {
         role: "Executive Director / Senior Editor",
         skills: ["Film Editing", "VFX Supervision", "Cinematics"],
         awards: "🏆 Best Video Editor 2025, 🏆 Master of VFX 2025, 🏆 Best Video Editor 2024",
+        experience: "5+ years",
         bio: "Sarvesh stands as the senior-most video editor of the Film Editor's Association, bringing unparalleled expertise and creative vision to the post-production industry of Uttarakhand. With an extensive and celebrated background in editing high-end feature films, his command over the editing suite has set the benchmark for regional cinematic storytelling. Beyond raw editing, Sarvesh is a master of VFX supervision and complex cinematics, seamlessly blending visual effects with live-action footage to create breathtaking visual narratives. As the Executive Director of the Video Editing wing, he oversees the technical curriculum, mentors the next generation of editors, and ensures that every major project meets global industry standards. His profound understanding of pacing, rhythm, and structural storytelling makes him a cornerstone of the FEA."
     },
     "Deepak": {
         role: "Post-Production Supervisor",
         skills: ["Workflow Design", "Troubleshooting", "Data Management"],
         awards: "🏆 Best Supervisor 2025, 🏆 Workflow Master 2024",
+        experience: "4+ years",
         bio: "Deepak is the ultimate technical troubleshooter, ensuring flawless workflows between the editing, VFX, and audio mixing departments. His deep understanding of data management, proxy generation, and server-side rendering prevents massive bottlenecks in complex, multi-timeline studio projects. He built the FEA's standardized folder structures and server protocols that are now used by major production houses across Dehradun. When a project faces a catastrophic technical failure or corrupted media, Deepak is the one called in to salvage the timeline. His ability to optimize hardware for massive 8K raw files has saved studios hundreds of hours in rendering."
     },
     "Niharika": {
         role: "Associate Editor / Directorate",
         skills: ["Commercials", "Assembly", "Detail Oriented"],
         awards: "🏆 Rising Star Editor 2025, 🏆 Best Assistant Edit 2024",
+        experience: "4+ years",
         bio: "Niharika represents the brightest emerging talent in the directorate, bringing incredibly fresh, modern pacing styles to both commercial edits and narrative films. Working directly under senior leadership, she assists in core curriculum planning for the association's younger members, bridging the gap between classic cinematic rules and modern, fast-paced digital retention strategies. Her meticulous attention to detail during the crucial assembly phase allows directors to see the skeleton of their film faster than ever. She is also a vocal advocate for increasing the presence of female editors in top-tier regional cinema."
     },
     "Payal Rawat": {
         role: "Post-Producer",
         skills: ["Scheduling", "Budgeting", "Producing"],
         awards: "🏆 Schedule Master 2025, 🏆 Outstanding Producer 2024",
+        experience: "4+ years",
         bio: "Payal is the master of timelines, client deliverables, and post-production budgets. Acting as the crucial, high-stress link between the directors, the clients, and the editing suite, she shields the creative artists from external pressures so they can focus entirely on their craft. She is known for her airtight scheduling, ensuring that massive feature projects hit their distribution deadlines without forcing the editing team into extreme burnout. Her ability to break down a script and accurately project the required post-production hours and budget is unmatched in the state."
     },
     "Varun": {
         role: "Project Coordinator",
         skills: ["Timeline Versioning", "Logistics", "Client Logs"],
         awards: "🏆 Timeline Manager 2025, 🏆 Workflow Coordination 2024",
+        experience: "4+ years",
         bio: "Operating at the chaotic intersection of production and post-production, Varun ensures that every massive studio timeline remains perfectly organized. Working directly under the Post-Producer, he handles daily timeline versioning, complex handoffs between the editing and VFX departments, and meticulous client review logs. His strict adherence to naming conventions and folder structures prevents critical media offline errors during crunch times. Varun acts as the crucial communication node, translating the director's abstract feedback into actionable technical tasks for the editing suite. His proactive approach keeps projects on schedule and within budget."
     },
     "Pranit Bisht": {
         role: "Resource Person",
         skills: ["Asset Management", "Tech Support", "Plugins"],
         awards: "🏆 Resourcefulness Award 2025, 🏆 Tech Guru 2024",
+        experience: "3+ years",
         bio: "Pranit is the association's primary technological scout and resource manager. He is responsible for acquiring, testing, and distributing high-quality digital assets, industry-standard plugins, and secure cloud storage resources to the FEA's massive member base. He spends hours benchmarking the latest AI editing tools and hardware setups, eventually distilling this knowledge into easily digestible seminars for the community. If there is a new, faster way to mask a subject or clear up noisy audio, Pranit is the first to document the workflow and share it with the state's editors."
     },
     "Prerna": {
         role: "Colorist / DI",
         skills: ["DaVinci Resolve", "HDR", "Look Development"],
         awards: "🏆 Best Color Grade 2025, 🏆 DI Specialist of the Year 2024",
+        experience: "3+ years",
         bio: "An absolute master of DaVinci Resolve, Prerna is responsible for crafting the final visual mood and emotional tone of the region's top films. She possesses a painter's eye for light and shadow, specializing in advanced node-tree structures, HDR workflows, and seamless camera-matching techniques. She regularly hosts the association's most sought-after masterclasses, teaching editors how to move beyond basic LUTs and truly understand color science. Her signature cinematic grades have elevated numerous low-budget regional films to look like high-end, international studio productions."
     },
     "Sarthak": {
         role: "Cinematics Supervisor",
         skills: ["Composition", "Cinematography", "Visual Flow"],
         awards: "🏆 Visual Storyteller 2025, 🏆 Best Cinematic Eye 2024",
-        bio: "Sarthak ensures that the visual framing, shot composition, and overall cinematic language remain perfectly consistent from the camera to the final render. Working closely with the color and VFX teams, he acts as the guardian of the director's visual intent during the chaotic post-production phase. He has a profound understanding of lens distortion, aspect ratios, and spatial continuity, easily identifying and correcting framing errors before they reach the final cut. His deep knowledge of film theory makes him a vital consultant for indie filmmakers in Uttarakhand."
+        experience: "3+ years",
+        bio: "Sarthak ensures that the visual framing, shot composition, and overall cinematic language remain perfectly consistent from the camera to the final render. Working closely with the color and VFX teams, acts as the guardian of the director's visual intent during the chaotic post-production phase. He has a profound understanding of lens distortion, aspect ratios, and spatial continuity, easily identifying and correcting framing errors before they reach the final cut. His deep knowledge of film theory makes him a vital consultant for indie filmmakers in Uttarakhand."
     },
     "Aryan": {
         role: "GFX Supervisor",
         skills: ["After Effects", "Title Sequences", "Motion Design"],
         awards: "🏆 Best Motion Graphics 2025, 🏆 Creative Tech Award 2024",
+        experience: "3+ years",
         bio: "Aryan oversees all dynamic motion graphics, complex title sequences, and digital overlays, constantly pushing the boundaries of 2D animation within regional cinema. Using After Effects as his primary canvas, he transforms static data and plain text into gripping visual experiences. He is heavily involved in the commercial side of the industry, designing high-retention motion graphics for major brands and state-level advertising campaigns. His workshops on easing, graph editors, and kinetic typography are mandatory viewing for the younger FEA members."
     },
     "Mallika Arora": {
         role: "SFX Supervisor",
         skills: ["Audio Mixing", "Foley", "Sound Design"],
         awards: "🏆 Best Sound Design 2025, 🏆 Audio Excellence 2024",
+        experience: "3+ years",
         bio: "Mallika builds the invisible, immersive soundscapes that breathe life into the editing timeline. She handles everything from meticulous dialogue cleanup to Foley recording and the final spatial audio mixdown. Understanding that sound is 50% of the cinematic experience, she works tirelessly to ensure that every footstep, wind howl, and musical swell hits with maximum emotional impact. She has established the FEA's standardized audio-level protocols for broadcasting and web delivery, ensuring Uttarakhand's content sounds perfect on any device."
     },
     "Sunita Dandriyal": {
         role: "VFX Supervisor",
         skills: ["Nuke", "Compositing", "Tracking"],
         awards: "🏆 Best Visual Effects 2025, 🏆 VFX Pioneer 2024",
+        experience: "3+ years",
         bio: "Sunita leads the highly technical visual effects team, specializing in seamless green screen compositing, complex wire-removals, and integrating CGI into live-action footage. Operating primarily in Nuke, her node-based workflow allows for incredibly efficient rendering on massive studio projects. She has pioneered the use of AI-assisted rotoscoping and 3D camera tracking within the local industry, drastically cutting down post-production times for regional directors. Her ability to execute invisible VFX—where the audience doesn't even know effects were used—is legendary."
     },
     "Nandini Nautiyal": {
         role: "Supervising Editor",
         skills: ["Continuity", "Narrative Structure", "Supervision"],
         awards: "🏆 Top Supervising Editor 2025, 🏆 Continuity Award 2024",
+        experience: "4+ years",
         bio: "Nandini oversees the macro-level editorial timeline, ensuring that narrative continuity and emotional pacing are perfectly maintained across sprawling, feature-length projects. She acts as the ultimate quality control checkpoint before a film goes to picture lock. By managing teams of assistant editors, she ensures that every scene flows logically into the next without jarring cuts or spatial errors. Her deep understanding of script structure allows her to restructure entire acts in the editing room to save pacing issues."
     },
     "Neha Sharma": {
         role: "Assistant Editor",
         skills: ["Media Management", "Proxies", "Assembly Cuts"],
-        awards: "🏆 Dedication in Editing 2025, 🏆 Fast Pacer Award 2024",
+        awards: "🏆 Fast Pacer Award 2024",
+        experience: "2+ years",
         bio: "Neha forms the crucial, highly organized foundation for the senior editing team. She handles the daunting tasks of project ingestion, massive metadata organization, proxy generation, and syncing audio for multi-cam shoots. Her ability to quickly build clean, logical rough assemblies allows the senior editors and directors to immediately jump into the creative process without fighting through raw footage. Her speed, dedication, and mastery of timeline management software make her one of the most reliable post-production artists in the state."
     },
     "Shivani Joshi": {
         role: "Creative Director",
         skills: ["Brand Identity", "Typography", "Creative Direction"],
         awards: "🏆 Creative Design Excellence 2025, 🏆 Best Brand Identity 2024",
+        experience: "5+ years",
         bio: "Shivani leads the massive design wing of the FEA, setting the ultimate standard for cinematic posters, digital campaigns, and full-scale brand identities. She possesses a razor-sharp, modern aesthetic that has redefined how Uttarakhand films are marketed to the public. Passionate about the psychology of color and typography, she frequently hosts masterclasses pushing her team to blend traditional fine art concepts with cutting-edge digital visualization. Her creative direction ensures that every piece of marketing material resonates deeply with the film's core narrative. She is a true visionary in the digital canvas space."
     },
     "Prashant": {
         role: "Motion Graphic Designer",
         skills: ["Animation", "Keyframing", "Dynamic Motion"],
         awards: "🏆 Best Keyframing 2025, 🏆 Smooth Transitions 2024",
+        experience: "5+ years",
         bio: "Prashant brings static designs to explosive life through advanced keyframing, dynamic motion, and fluid transitions. He specializes in creating highly engaging promotional materials, kinetic typography for social media, and immersive digital billboards for film releases. By perfectly syncing his motion graphics with audio cues, he creates marketing assets that demand audience retention. He is currently spearheading the association's push into 3D motion design using Cinema 4D and Unreal Engine."
     },
     "Arjun Bisht": {
         role: "3D Motion Artist",
         skills: ["Cinema 4D", "Blender", "3D Motion Graphics"],
         awards: "🏆 3D Innovator 2025, 🏆 Motion Excellence 2024",
+        experience: "5+ years",
         bio: "Arjun brilliantly bridges the gap between traditional 2D graphic design and immersive 3D virtual production environments. Utilizing Cinema 4D, Blender, and Unreal Engine, he creates stunning custom 3D title cards, dynamic broadcast graphics, and holographic HUD elements for high-end cinematic projects. He is a pioneer in integrating 3D motion tracking with live-action footage, allowing regional filmmakers to achieve Hollywood-level visual flair on indie budgets. Arjun regularly conducts masterclasses for the FEA, teaching junior members how to transition from static layouts into full-scale 3D environment design and kinetic typography."
     },
     "Sachin": {
         role: "Production Artist",
         skills: ["Print Optimization", "Vector Art", "Layouts"],
         awards: "🏆 Print Excellence 2025, 🏆 Best Output Art 2024",
+        experience: "5+ years",
         bio: "Sachin is the vital link between the digital concept screen and the final physical print. He ensures that all digital designs—from massive highway billboards to intricate DVD packaging—are perfectly optimized in CMYK, completely free of vector errors, and ready for flawless physical output. His deep understanding of print bleeds, resolution scaling, and color profiles saves studios from expensive printing disasters. He is a master of Adobe Illustrator and precise layout architecture."
     },
     "Devika Bora": {
         role: "Resource Person / Post-Production",
         skills: ["Asset Curation", "Final Polish", "Tool Mastery"],
         awards: "🏆 Design Educator 2025, 🏆 Tool Master 2024",
+        experience: "5+ years",
         bio: "Devika manages the vast design asset library for the FEA, curating thousands of high-res textures, fonts, and vector packs for member use. Beyond asset management, she applies the absolute final polish to major post-production designs, ensuring a flawless cinematic finish before public release. She is also a passionate educator, conducting regular deep-dive sessions on hidden Photoshop techniques and non-destructive workflow practices for junior members."
     },
     "Priyanshi Joshi": {
         role: "Concept Artist",
         skills: ["Digital Painting", "Character Design", "Storyboarding"],
         awards: "🏆 Original Concept 2025, 🏆 Digital Canvas Award 2024",
+        experience: "4+ years",
         bio: "Priyanshi creates the breathtaking initial visual blueprints for projects, seamlessly turning raw script pages into vivid digital sketches and character concepts. Her ability to capture lighting, mood, and anatomy in the very early stages of pre-production helps directors lock in their visual style before the cameras even start rolling. She is heavily involved in the growing animation and game design sectors of the state, bringing fantastical ideas into brilliant digital reality."
     },
     "Udit Sharma": {
         role: "Concept Artist",
         skills: ["Environment Art", "World Building", "Matte Painting"],
         awards: "🏆 Best Environment Art 2025, 🏆 Concept Visionary 2024",
+        experience: "4+ years",
         bio: "Udit specializes in building expansive, highly detailed environments and world designs. Using advanced matte painting techniques, he establishes the epic scale and visual tone of a film's universe. From historical recreations to futuristic sci-fi cityscapes, his concept art acts as the direct reference for both the set-designers and the VFX compositors. His meticulous attention to architectural detail and atmospheric perspective is widely celebrated."
     },
     "Divyansh": {
         role: "Visualizer",
         skills: ["Pre-Viz", "Animatics", "3D Mockups"],
         awards: "🏆 Best Pre-Viz 2025, 🏆 Idea Generator 2024",
+        experience: "3+ years",
         bio: "Divyansh works closely with directors and cinematographers to generate dynamic pre-visualization animatics. By mapping out complex VFX scenes, stunt choreography, and elaborate camera movements in a 3D space, he saves the production massive amounts of time and money on set. His rapid 3D mockups and spatial problem-solving skills allow filmmakers to experiment with daring shots without the risk of physical failure."
     },
     "Sanyam": {
         role: "Associate Graphic Designer",
         skills: ["Social Media Assets", "Layouts", "Typography"],
         awards: "🏆 Promising Designer 2025, 🏆 Best Typography 2024",
+        experience: "3+ years",
         bio: "Sanyam creates the rapid, high-impact supporting graphics, social media assets, and unique typography treatments required for modern digital marketing. Assisting the Creative Director on major state-wide campaigns, he ensures that the core brand identity translates perfectly to the small screen of a smartphone. His understanding of social media algorithms and visual retention hooks makes his designs incredibly effective."
     },
     "Shailendra Singh": {
         role: "Assistant Graphic Designer",
         skills: ["Retouching", "Masking", "Vector Cleanup"],
         awards: "🏆 Outstanding Support 2025, 🏆 Vector Art Award 2024",
+        experience: "3+ years",
         bio: "Shailendra handles the meticulous foundational tasks of the design wing, including high-end photo retouching, complex subject masking, and vector cleanups. By providing this essential, detail-oriented support, he frees up the senior design team to focus entirely on creative conceptualization. His speed in isolating subjects from difficult backgrounds is renowned throughout the directorate."
     }
 };
@@ -345,6 +373,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     document.getElementById('profile-modal-role').innerText = data.role;
                     document.getElementById('profile-modal-bio').innerText = data.bio;
                     document.getElementById('profile-modal-awards').innerText = data.awards;
+                    
+                    // Display experience if it exists, otherwise hide it
+                    const expElement = document.getElementById('profile-modal-exp');
+                    if (data.experience) {
+                        expElement.innerText = "Experience: " + data.experience;
+                        expElement.style.display = "block";
+                    } else {
+                        expElement.style.display = "none";
+                    }
 
                     const skillsContainer = document.getElementById('profile-modal-skills');
                     skillsContainer.innerHTML = '';
@@ -363,16 +400,16 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 // --- MASTERMINDS CARD EXPANSION LOGIC ---
-    const mastermindCards = document.querySelectorAll('.mastermind-card');
-    
-    mastermindCards.forEach(card => {
-        card.addEventListener('click', () => {
-            // Closes other expanded cards automatically (optional, remove if you want multiple open)
-            mastermindCards.forEach(c => {
-                if (c !== card) c.classList.remove('expanded');
-            });
-            
-            // Toggles the clicked card
-            card.classList.toggle('expanded');
+const mastermindCards = document.querySelectorAll('.mastermind-card');
+
+mastermindCards.forEach(card => {
+    card.addEventListener('click', () => {
+        // Closes other expanded cards automatically (optional, remove if you want multiple open)
+        mastermindCards.forEach(c => {
+            if (c !== card) c.classList.remove('expanded');
         });
+        
+        // Toggles the clicked card
+        card.classList.toggle('expanded');
     });
+});
