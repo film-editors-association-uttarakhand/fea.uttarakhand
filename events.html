@@ -1,0 +1,103 @@
+<!-- events.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events | FEA</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+    <a href="index.html" class="logo-link"><div class="logo">FEA <span>Uttarakhand</span></div></a>
+    
+    <div class="menu-toggle" id="mobile-menu">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+    </div>
+
+    <nav class="nav-container">
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="#" class="about-trigger" data-type="intro">About Us</a></li>
+            <li><a href="index.html#masterminds">Masterminds</a></li>
+            <li><a href="awards.html">Titles</a></li>
+            <li><a href="certifications.html">Certifications</a></li>
+            <li><a href="events.html" class="active">Events</a></li>
+            <li><a href="#" class="join-trigger" style="background: rgba(234, 179, 8, 0.7); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); color: #000; padding: 5px 15px; border-radius: 20px; font-weight: bold; box-shadow: 0 4px 15px rgba(234,179,8,0.2);">Join FEA</a></li>
+        </ul>
+    </nav>
+</header>
+
+    <div class="page-header" style="min-height: 60vh;"> <!-- Added min-height to push footer down -->
+        <h1 style="color: #b300ff;">Association Events</h1>
+        <p style="color: var(--text-muted); margin-top: 10px;">Workshops, Networking, and Galas.</p>
+        <div class="divider"></div>
+    </div>
+
+    <!-- About Us Modal -->
+    <div id="about-modal" class="modal-overlay">
+        <div class="modal-content" style="text-align: center;">
+            <span class="close-btn" id="close-about-modal">&times;</span>
+            <div class="modal-header">
+                <h2 id="about-modal-title">Title</h2>
+                <div class="divider" style="margin-bottom: 20px;"></div>
+            </div>
+            <div class="modal-body">
+                <p id="about-modal-desc" class="main-desc">Details will appear here...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Join FEA Modal -->
+    <div id="join-modal" class="modal-overlay">
+        <div class="modal-content glass-panel" style="text-align: center;">
+            <span class="close-btn" id="close-join-modal">&times;</span>
+            <div class="modal-header">
+                <h2>Join FEA Uttarakhand</h2>
+                <p style="color: var(--accent-gold); font-size: 0.9rem; margin-top: 5px;">Become a part of the state's largest post-production community.</p>
+                <div class="divider" style="margin-bottom: 20px;"></div>
+            </div>
+            <div class="modal-body">
+                <form id="join-form" action="https://formspree.io/f/xljgoepk" method="POST" style="display: flex; flex-direction: column; gap: 15px; text-align: left;">
+                    <input type="text" name="name" placeholder="Full Name" required class="glass-input">
+                    <input type="email" name="email" placeholder="Email Address" required class="glass-input">
+                    <select name="role" required class="glass-input">
+                        <option value="" disabled selected>Select Membership Type / Directorate</option>
+                        <option value="member">General Member</option>
+                        <option value="video">Video Editing / Post-Production (requires exp.)</option>
+                        <option value="design">Graphic Design / Art (requires exp.)</option>
+                        <option value="vfx">VFX / Compositing / Tech (requires exp.)</option>
+                        <option value="audio">Audio / SFX (requires exp.)</option>
+                    </select>
+                    <input type="url" name="portfolio" placeholder="Portfolio / Reel Link (Optional)" class="glass-input">
+                    <button type="submit" class="glass-btn">Submit Application</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-around; text-align: left; max-width: 1200px; margin: 0 auto; gap: 20px; padding-bottom: 20px;">
+            <div>
+                <div class="footer-logo"><span class="highlight">FEA</span> UTTARAKHAND</div>
+                <p style="color: var(--text-muted); font-size: 0.85rem;">Sahastradhara Road, Dehradun, UK 248013</p>
+            </div>
+            <div>
+                <h4 style="color: #fff; margin-bottom: 10px; font-size: 1rem;">Contact & Connect</h4>
+                <p style="color: var(--text-muted); font-size: 0.85rem;">📧 NA</p>
+                <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 10px;">📞 NA</p>
+                <div style="display: flex; gap: 15px;">
+                    <a href="#" style="color: var(--accent-gold); text-decoration: none; font-weight: bold;">Instagram</a>
+                    <a href="#" style="color: var(--accent-gold); text-decoration: none; font-weight: bold;">LinkedIn</a>
+                    <a href="#" style="color: var(--accent-gold); text-decoration: none; font-weight: bold;">YouTube</a>
+                </div>
+            </div>
+        </div>
+        <div class="divider" style="width: 100%; opacity: 0.2; margin-bottom: 20px;"></div>
+        <p>&copy; 2026 Film Editor's Association. All Rights Reserved.</p>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>
