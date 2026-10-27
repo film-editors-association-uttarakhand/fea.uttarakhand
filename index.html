@@ -670,35 +670,52 @@
 
         </div>
 
-    <!-- Modals -->
-    <div id="about-modal" class="modal-overlay">
-        <div class="modal-content" style="text-align: center;">
-            <span class="close-btn" id="close-about-modal">&times;</span>
-            <div class="modal-header">
-                <h2 id="about-modal-title">Title</h2>
-                <div class="divider" style="margin-bottom: 20px;"></div>
-            </div>
-            <div class="modal-body">
-                <p id="about-modal-desc" class="main-desc">Details will appear here...</p>
-            </div>
-        </div>
-    </div>
-
+<!-- Profile Modal (Spotlight 2-Column Design) -->
     <div id="profile-modal" class="modal-overlay">
-        <div class="modal-content">
-            <span class="close-btn" id="close-profile-modal">&times;</span>
-            <div class="modal-header" style="text-align: center;">
-                <h2 id="profile-modal-name">Name</h2>
-                <p id="profile-modal-role">Role</p>
-                <p id="profile-modal-exp" style="color: var(--text-main); font-size: 0.9rem; font-weight: 600; letter-spacing: 1px; margin-bottom: 20px; opacity: 0.8;"></p>
-                <div class="profile-skills" id="profile-modal-skills"></div>
-            </div>
-            <div class="modal-body">
-                <p id="profile-modal-bio" class="main-desc">Bio will appear here...</p>
-                <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--card-border); padding: 20px; border-radius: 12px; margin-top: 30px;">
-                    <h4 style="color: var(--accent-gold); margin-bottom: 10px; font-size: 0.9rem;">Recent Titles</h4>
-                    <p id="profile-modal-awards" style="color: #fff; font-size: 0.95rem;"></p>
+        <div class="modal-content" style="max-width: 950px; padding: 40px; text-align: left;">
+            <span class="close-btn" id="close-profile-modal" style="top: 15px; right: 25px;">&times;</span>
+            
+            <div style="display: flex; flex-wrap: wrap; gap: 40px; align-items: center;">
+                
+                <!-- Left Side: Identity & Bio -->
+                <div style="flex: 1 1 350px;">
+                    <h2 id="profile-modal-role" style="color: var(--accent-gold); font-size: 1rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 5px; font-family: 'Inter', sans-serif;">Role</h2>
+                    <h3 id="profile-modal-name" style="font-size: 2.5rem; color: #fff; margin-bottom: 20px; line-height: 1.1;">Name</h3>
+                    <p id="profile-modal-bio" class="main-desc" style="margin-top: 0; font-size: 0.95rem; color: var(--text-muted); line-height: 1.7;">Bio will appear here...</p>
                 </div>
+
+                <!-- Right Side: Metrics Panel -->
+                <div style="flex: 1 1 350px; display: flex; flex-direction: column; justify-content: center; gap: 20px; background: rgba(0,0,0,0.3); padding: 30px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.05);">
+                    
+                    <!-- Core Expertise -->
+                    <div>
+                        <h4 style="font-size: 0.8rem; color: #fff; margin-bottom: 12px; letter-spacing: 1.5px;">CORE EXPERTISE</h4>
+                        <div id="profile-modal-skills" style="display: flex; flex-wrap: wrap; gap: 8px;">
+                            <!-- Dynamic Skills inserted via JS -->
+                        </div>
+                    </div>
+
+                    <!-- Career Milestones -->
+                    <div>
+                        <h4 style="font-size: 0.8rem; color: #fff; margin-bottom: 12px; letter-spacing: 1.5px;">CAREER MILESTONES</h4>
+                        <div id="profile-modal-awards" style="display: flex; flex-direction: column; gap: 10px;">
+                            <!-- Dynamic Awards inserted via JS -->
+                        </div>
+                    </div>
+
+                    <!-- Quick Stats -->
+                    <div style="display: flex; gap: 40px; margin-top: 10px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 20px;">
+                        <div>
+                            <p id="profile-modal-exp-val" style="font-size: 1.8rem; color: #fff; font-weight: 700; margin: 0; line-height: 1;">0+</p>
+                            <p style="color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; margin-top: 5px;">Years Exp.</p>
+                        </div>
+                        <div>
+                            <p id="profile-modal-status" style="font-size: 1.8rem; color: #fff; font-weight: 700; margin: 0; line-height: 1;">Pro</p>
+                            <p style="color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; margin-top: 5px;">Member Status</p>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
