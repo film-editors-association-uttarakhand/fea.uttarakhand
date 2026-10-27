@@ -393,7 +393,7 @@ const memberProfiles = {
         aboutModal.addEventListener('click', (e) => { if (e.target === aboutModal) { aboutModal.classList.remove('active'); document.body.style.overflow = 'auto'; } });
     }
 
-    // 5. Profiles Modal Logic
+// 5. Profiles Modal Logic
     const profileTriggers = document.querySelectorAll('.profile-trigger');
     const profileModal = document.getElementById('profile-modal');
 
@@ -407,21 +407,49 @@ const memberProfiles = {
                     document.getElementById('profile-modal-name').innerText = memberName;
                     document.getElementById('profile-modal-role').innerText = data.role;
                     document.getElementById('profile-modal-bio').innerText = data.bio;
-                    document.getElementById('profile-modal-awards').innerText = data.awards;
                     
-                    const expElement = document.getElementById('profile-modal-exp');
+                    // Format Quick Stats
+                    const expElement = document.getElementById('profile-modal-exp-val');
                     if (data.experience) {
-                        expElement.innerText = "Experience: " + data.experience;
-                        expElement.style.display = "block";
+                        // Cleans up the raw string (e.g., "5+ years" becomes "5+")
+                        expElement.innerText = data.experience.replace(/[^0-9]/g, '') + '+';
                     } else {
-                        expElement.style.display = "none";
+                        expElement.innerText = "N/A";
                     }
 
+                    // Dynamically determine Member Status based on role keywords
+                    let status = "Pro";
+                    let roleString = data.role.toLowerCase();
+                    if (roleString.includes("director") || roleString.includes("president")) status = "Exec.";
+                    else if (roleString.includes("lead") || roleString.includes("supervisor")) status = "Lead";
+                    else if (roleString.includes("senior")) status = "Senior";
+                    document.getElementById('profile-modal-status').innerText = status;
+
+                    // Format Expertise Tags (Gold Pills)
                     const skillsContainer = document.getElementById('profile-modal-skills');
                     skillsContainer.innerHTML = '';
                     data.skills.forEach(skill => {
-                        skillsContainer.innerHTML += `<span>${skill}</span>`;
+                        skillsContainer.innerHTML += `<span style="background: rgba(234, 179, 8, 0.1); border: 1px solid rgba(234, 179, 8, 0.2); color: var(--accent-gold); padding: 6px 14px; border-radius: 20px; font-size: 0.75rem; font-weight: bold; letter-spacing: 1px;">${skill}</span>`;
                     });
+
+                    // Format Career Milestones (Split comma-separated string into a styled list)
+                    const awardsContainer = document.getElementById('profile-modal-awards');
+                    awardsContainer.innerHTML = '';
+                    if(data.awards) {
+                        let awardsList = data.awards.split(',');
+                        awardsList.forEach(award => {
+                            let text = award.replace(/🏆/g, '').trim(); // Strip existing emojis so we can style them
+                            if(text) {
+                                awardsContainer.innerHTML += `
+                                <div style="display: flex; align-items: center; gap: 12px;">
+                                    <span style="font-size: 1.1rem; filter: drop-shadow(0 0 5px rgba(234,179,8,0.5));">🏆</span>
+                                    <p style="color: var(--text-muted); font-size: 0.9rem; margin: 0;">${text}</p>
+                                </div>`;
+                            }
+                        });
+                    } else {
+                         awardsContainer.innerHTML = '<p style="color: var(--text-muted); font-size: 0.9rem;">No titles listed.</p>';
+                    }
 
                     profileModal.classList.add('active');
                     document.body.style.overflow = 'hidden';
@@ -429,8 +457,16 @@ const memberProfiles = {
             });
         });
 
-        document.getElementById('close-profile-modal').addEventListener('click', () => { profileModal.classList.remove('active'); document.body.style.overflow = 'auto'; });
-        profileModal.addEventListener('click', (e) => { if (e.target === profileModal) { profileModal.classList.remove('active'); document.body.style.overflow = 'auto'; } });
+        document.getElementById('close-profile-modal').addEventListener('click', () => { 
+            profileModal.classList.remove('active'); 
+            document.body.style.overflow = 'auto'; 
+        });
+        profileModal.addEventListener('click', (e) => { 
+            if (e.target === profileModal) { 
+                profileModal.classList.remove('active'); 
+                document.body.style.overflow = 'auto'; 
+            } 
+        });
     }
 
     // 6. Mastermind Cards Logic
