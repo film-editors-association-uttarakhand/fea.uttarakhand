@@ -108,14 +108,19 @@ header {
 .about-box p { color: var(--text-muted); font-size: 0.95rem; }
 .mm-tag { display: inline-block; color: var(--text-muted); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px; }
 
-/* Spotlight Mastermind Card */
+/* --- LAPTOP SCREEN KE LIYE COMPATIBLE LAYOUT --- */
 .spotlight-card {
     grid-column: 1 / -1; 
     display: grid; 
-    grid-template-columns: 1fr 1fr; /* Forces 2 columns on laptops */
+    /* Left side (Bio) thoda bada rakha hai, Right side (Box) limit mein rahega */
+    grid-template-columns: 1.5fr 1fr; 
     gap: 40px;
     background: linear-gradient(145deg, rgba(234, 179, 8, 0.05), transparent) !important;
     border: 1px solid rgba(234, 179, 8, 0.2) !important;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box; /* Isse box padding ke wajah se bahar nahi jayega */
+    overflow: hidden;
 }
 
 .mm-desc {
@@ -350,30 +355,36 @@ footer p { color: var(--text-muted); font-size: 0.9rem; }
 .close-system-cross:hover {
     color: #fff;
 }
-/* Responsive Fixes for Mastermind Cards on Mobile */
+/* --- PHONE SCREEN JITNA RAKHNE KE LIYE STRICT MOBILE FIX --- */
 @media (max-width: 900px) {
-    /* Stack into 1 column on phones/tablets */
-    .spotlight-card {
-        grid-template-columns: 1fr !important;
-        gap: 20px !important;
-        padding: 25px 15px !important;
+    .grid-container {
+        padding: 0 15px 50px !important; /* Phone pe margin theek karega */
     }
     
-    /* Shrink the massive name font so it doesn't break lines */
+    .spotlight-card {
+        /* Phone pe side-by-side hata kar ek ke niche ek stack kar dega */
+        grid-template-columns: 1fr !important; 
+        gap: 20px !important;
+        padding: 20px 15px !important;
+        width: 100% !important; 
+    }
+    
+    /* Name ko phone ke size ke hisaab se chhota karega taaki bahar na nikle */
     .spotlight-card p[style*="font-size: 2.5rem"] {
-        font-size: 1.8rem !important;
+        font-size: 1.6rem !important;
+        line-height: 1.2 !important;
         margin-bottom: 10px !important;
     }
 
-    /* Reduce the padding and gaps inside the dark metrics box */
+    /* Right side wale metrics box ki padding phone pe choti karega */
     .spotlight-card > div:nth-child(2) {
         padding: 15px !important;
         gap: 15px !important;
     }
 
-    /* Center the Quick Stats at the bottom for a better mobile look */
+    /* Quick stats ko properly center karega */
     .spotlight-card > div:nth-child(2) > div:last-child {
-        gap: 20px !important;
+        gap: 15px !important;
         justify-content: space-around;
         text-align: center;
     }
