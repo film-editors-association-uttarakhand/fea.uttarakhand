@@ -110,7 +110,11 @@ header {
 
 /* Spotlight Mastermind Card */
 .spotlight-card {
-    grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr; gap: 40px;
+    grid-column: 1 / -1; 
+    display: grid; 
+    /* This line is the magic fix: it tells the card to use 2 columns on PC, but snap to 1 column on phones */
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+    gap: 30px;
     background: linear-gradient(145deg, rgba(234, 179, 8, 0.05), transparent) !important;
     border: 1px solid rgba(234, 179, 8, 0.2) !important;
 }
