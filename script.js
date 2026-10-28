@@ -551,19 +551,3 @@ const memberProfiles = {
         });
     }
 
-    setTimeout(() => {
-        if (currentPath === 'events.html') {
-            createSystemPopup(
-                "Update Pending", 
-                "Events will be updated soon.", 
-                "~ Film Editor's Association, Uttarakhand",
-                () => { window.location.href = 'index.html'; } // Redirects to home on close
-            );
-        } else {
-            createSystemPopup(
-                "System Status", 
-                "The Website is currently in maintenance mode.<br>Thanks for your patience.", 
-                "~ The Core Committee, FEA Uttarakhand"
-            );
-        }
-    }, 800);
