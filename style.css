@@ -112,9 +112,8 @@ header {
 .spotlight-card {
     grid-column: 1 / -1; 
     display: grid; 
-    /* This line is the magic fix: it tells the card to use 2 columns on PC, but snap to 1 column on phones */
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
-    gap: 30px;
+    grid-template-columns: 1fr 1fr; /* Forces 2 columns on laptops */
+    gap: 40px;
     background: linear-gradient(145deg, rgba(234, 179, 8, 0.05), transparent) !important;
     border: 1px solid rgba(234, 179, 8, 0.2) !important;
 }
@@ -352,8 +351,8 @@ footer p { color: var(--text-muted); font-size: 0.9rem; }
     color: #fff;
 }
 /* Responsive Fixes for Mastermind Cards on Mobile */
-@media (max-width: 768px) {
-    /* Stack the columns and reduce outer padding */
+@media (max-width: 900px) {
+    /* Stack into 1 column on phones/tablets */
     .spotlight-card {
         grid-template-columns: 1fr !important;
         gap: 20px !important;
