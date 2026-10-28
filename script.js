@@ -522,32 +522,3 @@ const memberProfiles = {
         }
     }
 });
-// 8. Global System Pop-ups (Maintenance & Events)
-    const currentPath = window.location.pathname.split('/').pop();
-    
-    function createSystemPopup(title, message, signature, onCloseCallback) {
-        const overlay = document.createElement('div');
-        overlay.className = 'system-modal-overlay';
-        overlay.innerHTML = `
-            <div class="system-modal-content glass-panel" style="position: relative;">
-                <span class="close-system-cross">&times;</span>
-                <h3>${title}</h3>
-                <p>${message}</p>
-                <p class="signature">${signature}</p>
-            </div>
-        `;
-        document.body.appendChild(overlay);
-        document.body.style.overflow = 'hidden'; 
-        
-        overlay.querySelector('.close-system-cross').addEventListener('click', () => {
-            overlay.style.opacity = '0';
-            document.body.style.overflow = 'auto'; 
-            setTimeout(() => {
-                overlay.remove();
-                if (onCloseCallback) {
-                    onCloseCallback();
-                }
-            }, 300);
-        });
-    }
-
