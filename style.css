@@ -347,3 +347,31 @@ footer p { color: var(--text-muted); font-size: 0.9rem; }
 .close-system-cross:hover {
     color: #fff;
 }
+/* Responsive Fixes for Mastermind Cards on Mobile */
+@media (max-width: 768px) {
+    /* Stack the columns and reduce outer padding */
+    .spotlight-card {
+        grid-template-columns: 1fr !important;
+        gap: 20px !important;
+        padding: 25px 15px !important;
+    }
+    
+    /* Shrink the massive name font so it doesn't break lines */
+    .spotlight-card p[style*="font-size: 2.5rem"] {
+        font-size: 1.8rem !important;
+        margin-bottom: 10px !important;
+    }
+
+    /* Reduce the padding and gaps inside the dark metrics box */
+    .spotlight-card > div:nth-child(2) {
+        padding: 15px !important;
+        gap: 15px !important;
+    }
+
+    /* Center the Quick Stats at the bottom for a better mobile look */
+    .spotlight-card > div:nth-child(2) > div:last-child {
+        gap: 20px !important;
+        justify-content: space-around;
+        text-align: center;
+    }
+}
