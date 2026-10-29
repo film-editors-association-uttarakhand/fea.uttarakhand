@@ -45,7 +45,19 @@ header {
     position: fixed; top: 0; width: 100%; z-index: 1000;
     padding: 20px 5%; display: flex; justify-content: space-between; align-items: center;
 }
-.logo-link { text-decoration: none; }
+.logo-link { 
+    text-decoration: none; 
+    display: flex; 
+    align-items: center; 
+    gap: 12px; 
+}
+
+.header-logo-img {
+    height: 45px;       /* Adjust this value to make the logo larger or smaller */
+    width: 45px;
+    border-radius: 50%; /* Keeps the circular badge look clean */
+    object-fit: contain;
+}
 .logo { font-size: 1.5rem; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; color: #fff; }
 .logo span { color: var(--accent-gold); }
 .nav-links { display: flex; gap: 30px; list-style: none; }
