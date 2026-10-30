@@ -126,7 +126,7 @@ const memberProfiles = {
             role: "Trailer & Promo Editorial Supervisor",
             skills: ["Theatrical Trailers", "High-Retention Teasers", "Promotional Dynamics"],
             awards: "🏆 Best Trailer Cut 2026, 🏆 Teaser Architect Award 2025, 🏆 Promo Excellence 2024",
-            experience: "3.5 years",
+            experience: "4 years",
             bio: "Anurag commands the promotional cutting suite, tailoring high-impact narrative hooks and rhythmic cuts for feature trailers and digital retention campaigns. Originally from Lucknow, UP, he brings a fast-paced, high-energy metropolitan editing style to the regional cinema space. His deep understanding of sound-driven editing and micro-pacing ensures that every promo he cuts maximizes audience engagement."
         },
         "Meenakshi Bhatt": {
