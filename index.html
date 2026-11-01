@@ -10,7 +10,7 @@
 <body>
     
 <header>
-    <a href="index.html" class="logo-link">
+<a href="index.html" class="logo-link">
     <img src="1000021500-modified.png" alt="FEA Logo" class="header-logo-img">
     <div class="logo">FEA <span>Uttarakhand</span></div>
 </a>
@@ -28,7 +28,7 @@
             <li><a href="index.html#masterminds">Masterminds</a></li>
             <li><a href="awards.html">Titles</a></li>
             <li><a href="certifications.html">Certifications</a></li>
-
+ 
             <li><a href="#" class="join-trigger" style="background: rgba(234, 179, 8, 0.7); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); color: #000; padding: 5px 15px; border-radius: 20px; font-weight: bold; box-shadow: 0 4px 15px rgba(234,179,8,0.2);">Join FEA</a></li>
         </ul>
     </nav>
@@ -59,10 +59,6 @@
             <h3>Our Vision</h3>
             <p>To establish Uttarakhand as a premier hub for world-class post-production and digital art...</p>
         </div>
-        <div class="about-box about-trigger" data-type="activities">
-            <h3>Core Activities</h3>
-            <p>We host advanced software workshops, conduct portfolio reviews, and organize awards...</p>
-        </div>
     </div>
 
     <section id="committee" style="padding-top: 60px;">
@@ -84,8 +80,9 @@
         <div class="grid-container">
             <div class="card profile-trigger" data-member="Narendra Negi"><h3>President</h3><p>Narendra Negi</p></div>
             <div class="card profile-trigger" data-member="Ronish"><h3>Vice President</h3><p>Ronish</p></div>
-            <div class="card profile-trigger" data-member="Sumit"><h3>Secretary</h3><p>Sumit</p></div>
+            <div class="card profile-trigger" data-member="Sarvesh Kushwaha"><h3>Secretary</h3><p>Sarvesh Kushwaha</p></div>
             <div class="card profile-trigger" data-member="Hemchand Pandey"><h3>Joint Secretary</h3><p>Hemchand Pandey</p></div>
+            <div class="card profile-trigger" data-member="Sumit"><h3>General Secretary</h3><p>Sumit</p></div>
             <div class="card profile-trigger" data-member="Inder Singh"><h3>Treasurer</h3><p>Inder Singh</p></div>
             <div class="card profile-trigger" data-member="Pankaj Sharma"><h3>CTO / IT Head</h3><p>Pankaj Sharma</p></div>
             <div class="card profile-trigger" data-member="Manish Tiwari"><h3>Joint Treasurer</h3><p>Manish Tiwari</p></div>
@@ -183,12 +180,13 @@
         <div class="grid-container">
             <!-- (Your 10 Spotlight Cards go here) -->
 <div class="grid-container">
+    
             
             <!-- 1. SARVESH KUSHWAHA -->
             <div class="card spotlight-card profile-trigger" data-member="Sarvesh Kushwaha">
                 <div>
                     <span class="mm-tag">Visionary & The Ultimate of 2024, 2025 & 2026</span>
-                    <h3 style="color: #fff200; font-size: 1.2rem; margin-bottom: 5px;">Executive Director</h3>
+                    <h3 style="color: #fff200; font-size: 1.2rem; margin-bottom: 5px;">Secretary & Executive Director</h3>
                     <p style="font-size: 2.5rem; margin-bottom: 15px;">Sarvesh Kushwaha</p>
                     <div class="mm-desc" style="border-top: none; padding-top: 0; margin-top: 0;">
                         The visionary narrative architect setting global standards for regional cinema. 
@@ -211,7 +209,7 @@
                         <div style="display: flex; flex-direction: column; gap: 6px;">
                             <div style="display: flex; align-items: center; gap: 10px;">
                                 <span style="font-size: 0.9rem; filter: drop-shadow(0 0 5px rgba(234,179,8,0.5));">🏆</span>
-                                <p style="color: var(--text-muted); font-size: 0.85rem; margin: 0;">Supervising Leader & Community Builder<span style="color: var(--accent-gold); font-weight: bold;">(2026)</span></p>
+                                <p style="color: var(--text-muted); font-size: 0.85rem; margin: 0;">Supervising Leader & Community Builder <span style="color: var(--accent-gold); font-weight: bold;">(2026)</span></p>
                             </div>
                             <div style="display: flex; align-items: center; gap: 10px;">
                                 <span style="font-size: 0.9rem; filter: drop-shadow(0 0 5px rgba(234,179,8,0.5));">🏆</span>
@@ -723,6 +721,19 @@
         </div>
     </div>
 
+    <!-- About Us Modal -->
+    <div id="about-modal" class="modal-overlay">
+        <div class="modal-content" style="text-align: center;">
+            <span class="close-btn" id="close-about-modal">&times;</span>
+            <div class="modal-header">
+                <h2 id="about-modal-title">Title</h2>
+                <div class="divider" style="margin-bottom: 20px;"></div>
+            </div>
+            <div class="modal-body">
+                <p id="about-modal-desc" class="main-desc">Details will appear here...</p>
+            </div>
+        </div>
+    </div>
     <!-- Join FEA Modal -->
     <div id="join-modal" class="modal-overlay">
         <div class="modal-content glass-panel" style="text-align: center;">
