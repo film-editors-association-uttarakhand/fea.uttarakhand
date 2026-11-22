@@ -401,3 +401,667 @@ footer p { color: var(--text-muted); font-size: 0.9rem; }
         text-align: center;
     }
 }
+/* =========================================================
+   FEA 2026 — ART-DIRECTED CINEMATIC VOTING UI
+   ========================================================= */
+:root {
+    --gold-light: #f6e27a;
+    --gold-mid: #d4af37;
+    --gold-deep: #997415;
+    --gold-gradient: linear-gradient(135deg, #f6e27a 0%, #d4af37 50%, #aa7c11 100%);
+    --obsidian: #07070b;
+    --glass-border: rgba(212, 175, 55, 0.18);
+}
+
+/* --- CONTROLS & ARCHITECTURAL FILTER BAR --- */
+.voting-controls {
+    max-width: 1380px;
+    margin: 0 auto 55px;
+    padding: 0 5%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
+}
+
+.voting-stats-bar {
+    display: inline-flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01));
+    border-top: 1px solid rgba(212, 175, 55, 0.35);
+    border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+    padding: 16px 48px;
+    position: relative;
+}
+
+.stat-pill {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.stat-pill strong {
+    font-family: 'Cinzel', serif;
+    font-size: 1.55rem;
+    font-weight: 700;
+    background: var(--gold-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-variant-numeric: tabular-nums;
+}
+
+.filter-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 32px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding-bottom: 2px;
+}
+
+.filter-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    padding: 12px 4px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    cursor: pointer;
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+.filter-btn::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -3px;
+    height: 2px;
+    background: var(--gold-gradient);
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.filter-btn:hover,
+.filter-btn.active {
+    color: #fff;
+}
+
+.filter-btn.active::after {
+    transform: scaleX(1);
+}
+
+.vote-search {
+    width: 100%;
+    max-width: 460px;
+    padding: 13px 22px;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.025);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #fff;
+    font-size: 0.88rem;
+    letter-spacing: 0.5px;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.vote-search::placeholder {
+    color: rgba(255, 255, 255, 0.32);
+    letter-spacing: 1px;
+}
+
+.vote-search:focus {
+    border-color: var(--gold-mid);
+    background: rgba(212, 175, 55, 0.04);
+    box-shadow: 0 0 30px rgba(212, 175, 55, 0.1);
+}
+
+/* --- CINEMA-POSTER CATEGORY BANNERS GRID --- */
+.category-banners-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+    gap: 28px;
+    padding: 0 5% 100px;
+    max-width: 1380px;
+    margin: 0 auto;
+}
+
+.category-banner-card {
+    position: relative;
+    min-height: 270px;
+    border-radius: 12px;
+    padding: 28px 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    cursor: pointer;
+    overflow: hidden;
+    background: var(--obsidian);
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    box-shadow: 0 18px 45px rgba(0, 0, 0, 0.55);
+    transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.4s ease, box-shadow 0.45s ease;
+}
+
+/* Background Artwork + Editorial Vignette */
+.banner-bg-img {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    opacity: 0.32;
+    filter: grayscale(45%) contrast(115%);
+    transform: scale(1.02);
+    transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.5s ease, filter 0.6s ease;
+    z-index: 0;
+}
+
+.category-banner-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(180deg, rgba(7, 7, 11, 0.55) 0%, rgba(7, 7, 11, 0.78) 55%, rgba(7, 7, 11, 0.96) 100%),
+        radial-gradient(circle at top right, rgba(212, 175, 55, 0.14), transparent 55%);
+    z-index: 1;
+}
+
+/* Subtle Designer Corner Crop Marks */
+.corner-mark {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    border-color: rgba(212, 175, 55, 0.35);
+    border-style: solid;
+    z-index: 3;
+    transition: border-color 0.35s ease, transform 0.35s ease;
+    pointer-events: none;
+}
+
+.corner-mark.tl { top: 10px; left: 10px; border-width: 1px 0 0 1px; }
+.corner-mark.br { bottom: 10px; right: 10px; border-width: 0 1px 1px 0; }
+
+.category-banner-card:hover {
+    transform: translateY(-8px);
+    border-color: rgba(212, 175, 55, 0.6);
+    box-shadow: 0 24px 55px rgba(0, 0, 0, 0.75), 0 0 30px rgba(212, 175, 55, 0.12);
+}
+
+.category-banner-card:hover .banner-bg-img {
+    transform: scale(1.1);
+    opacity: 0.48;
+    filter: grayscale(10%) contrast(120%);
+}
+
+.category-banner-card:hover .corner-mark {
+    border-color: var(--gold-light);
+}
+
+.banner-top-meta {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 18px;
+}
+
+.banner-index-tag {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--gold-light);
+    opacity: 0.9;
+}
+
+.banner-index-tag span {
+    color: rgba(255, 255, 255, 0.35);
+    margin: 0 6px;
+}
+
+.banner-voted-pill {
+    background: rgba(212, 175, 55, 0.16);
+    border: 1px solid var(--gold-mid);
+    color: var(--gold-light);
+    font-size: 0.62rem;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 2px;
+    text-transform: uppercase;
+    letter-spacing: 1.8px;
+}
+
+.banner-body {
+    position: relative;
+    z-index: 2;
+}
+
+.banner-title {
+    font-family: 'Cinzel', serif;
+    font-size: 1.55rem;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.22;
+    letter-spacing: 1.5px;
+    margin-bottom: 10px;
+    transition: color 0.3s ease;
+}
+
+.category-banner-card:hover .banner-title {
+    color: var(--gold-light);
+}
+
+.banner-nominee-line {
+    font-size: 0.78rem;
+    color: rgba(255, 255, 255, 0.62);
+    letter-spacing: 0.4px;
+    line-height: 1.5;
+}
+
+.banner-nominee-line strong {
+    color: #fff;
+    font-weight: 600;
+}
+
+.banner-footer {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 24px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.banner-votes-count {
+    font-size: 0.78rem;
+    color: rgba(255, 255, 255, 0.75);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-variant-numeric: tabular-nums;
+}
+
+.banner-votes-count strong {
+    color: var(--gold-light);
+    font-size: 0.95rem;
+    margin-right: 4px;
+}
+
+.banner-cta {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #fff;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.category-banner-card:hover .banner-cta {
+    color: var(--gold-light);
+    transform: translateX(4px);
+}
+
+/* --- DEDICATED CATEGORY BALLOT VIEW (VIEW 2) --- */
+.category-voting-view {
+    max-width: 1120px;
+    margin: 0 auto 100px;
+    padding: 0 5%;
+    display: none;
+}
+
+.category-voting-view.active {
+    display: block;
+    animation: fadeInView 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes fadeInView {
+    from { opacity: 0; transform: translateY(18px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.back-btn {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    color: rgba(255, 255, 255, 0.85);
+    padding: 10px 22px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    margin-bottom: 28px;
+    transition: all 0.3s ease;
+}
+
+.back-btn:hover {
+    border-color: var(--gold-mid);
+    color: var(--gold-light);
+    background: rgba(212, 175, 55, 0.06);
+}
+
+.active-category-hero {
+    position: relative;
+    overflow: hidden;
+    border-radius: 14px;
+    padding: 46px 44px;
+    margin-bottom: 36px;
+    border: 1px solid rgba(212, 175, 55, 0.35);
+    background-color: #09090e;
+    background-size: cover;
+    background-position: center;
+    box-shadow: 0 22px 55px rgba(0, 0, 0, 0.65);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 24px;
+}
+
+.active-category-hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, rgba(7, 7, 11, 0.94) 0%, rgba(7, 7, 11, 0.78) 60%, rgba(7, 7, 11, 0.6) 100%);
+    z-index: 0;
+}
+
+.active-category-hero > * {
+    position: relative;
+    z-index: 1;
+}
+
+.active-category-hero .banner-dir-tag {
+    font-size: 0.72rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold-light);
+    font-weight: 600;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.active-category-hero h2 {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5rem;
+    color: #fff;
+    line-height: 1.15;
+    margin-bottom: 8px;
+}
+
+.live-indicator {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(7, 7, 11, 0.75);
+    border: 1px solid rgba(212, 175, 55, 0.45);
+    color: var(--gold-light);
+    padding: 12px 24px;
+    border-radius: 4px;
+    font-size: 0.82rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    font-weight: 600;
+    backdrop-filter: blur(10px);
+}
+
+.live-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #22c55e;
+    box-shadow: 0 0 12px #22c55e;
+    animation: pulseDot 1.6s infinite;
+}
+
+@keyframes pulseDot {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.35; transform: scale(0.75); }
+}
+
+/* --- EDITORIAL BALLOT LEADERBOARD ROWS --- */
+.voting-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.nominee-card {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.03), rgba(10, 10, 15, 0.92));
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+    padding: 24px 30px;
+    display: grid;
+    grid-template-columns: 56px 1.25fr 1.45fr auto;
+    align-items: center;
+    gap: 24px;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.nominee-card:hover {
+    border-color: rgba(212, 175, 55, 0.45);
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.05), rgba(12, 12, 18, 0.95));
+}
+
+.nominee-card.leader-card {
+    border-color: rgba(212, 175, 55, 0.55);
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(10, 10, 15, 0.95));
+    box-shadow: 0 10px 35px rgba(212, 175, 55, 0.08);
+}
+
+.nominee-card.voted-card {
+    border-color: var(--gold-light);
+    box-shadow: 0 0 28px rgba(212, 175, 55, 0.18);
+}
+
+.rank-badge {
+    font-family: 'Cinzel', serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.3);
+    text-align: center;
+    font-variant-numeric: tabular-nums;
+}
+
+.leader-card .rank-badge {
+    background: var(--gold-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 1.65rem;
+}
+
+.nominee-top {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.nominee-avatar {
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    background: #0e0e14;
+    border: 1px solid rgba(212, 175, 55, 0.45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Cinzel', serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--gold-light);
+    flex-shrink: 0;
+}
+
+.leader-card .nominee-avatar {
+    background: var(--gold-gradient);
+    color: #000;
+    border-color: var(--gold-light);
+}
+
+.status-badge {
+    display: inline-block;
+    font-size: 0.64rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.status-badge.incumbent {
+    color: var(--gold-light);
+}
+
+.status-badge.member {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.nominee-name {
+    font-family: 'Cinzel', serif;
+    font-size: 1.32rem;
+    color: #fff;
+    line-height: 1.2;
+    letter-spacing: 1px;
+}
+
+.vote-meter-wrap {
+    width: 100%;
+}
+
+.vote-meter-labels {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-size: 0.8rem;
+    margin-bottom: 9px;
+    color: var(--text-muted);
+    letter-spacing: 0.5px;
+    font-variant-numeric: tabular-nums;
+}
+
+.vote-meter-labels strong {
+    color: #fff;
+    font-size: 1.05rem;
+    margin-right: 4px;
+}
+
+.pct-pill {
+    color: var(--gold-light);
+    font-weight: 700;
+    font-size: 0.88rem;
+}
+
+.vote-bar-bg {
+    width: 100%;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.vote-bar-fill {
+    height: 100%;
+    background: var(--gold-gradient);
+    border-radius: 3px;
+    box-shadow: 0 0 14px rgba(212, 175, 55, 0.45);
+    transition: width 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.btn-vote {
+    min-width: 160px;
+    padding: 13px 24px;
+    border-radius: 4px;
+    border: 1px solid var(--gold-mid);
+    background: var(--gold-gradient);
+    color: #050507;
+    font-weight: 800;
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-vote:hover:not(:disabled) {
+    box-shadow: 0 0 28px rgba(212, 175, 55, 0.45);
+    transform: translateY(-2px);
+}
+
+.btn-vote.voted {
+    background: rgba(212, 175, 55, 0.14);
+    border-color: var(--gold-light);
+    color: var(--gold-light);
+    cursor: default;
+}
+
+.btn-vote:disabled:not(.voted) {
+    background: transparent;
+    border-color: rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.3);
+    cursor: not-allowed;
+}
+
+.vote-toast {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: rgba(10, 10, 15, 0.96);
+    border: 1px solid var(--gold-mid);
+    color: var(--gold-light);
+    padding: 15px 28px;
+    border-radius: 4px;
+    letter-spacing: 1px;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.75);
+    z-index: 3000;
+    opacity: 0;
+    transform: translateY(20px);
+    pointer-events: none;
+    transition: 0.35s ease;
+}
+
+.vote-toast.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@media (max-width: 900px) {
+    .category-banners-grid {
+        grid-template-columns: 1fr;
+    }
+    .nominee-card {
+        grid-template-columns: 1fr;
+        gap: 16px;
+        padding: 22px;
+    }
+    .rank-badge {
+        text-align: left;
+    }
+    .btn-vote {
+        width: 100%;
+    }
+    .active-category-hero {
+        padding: 28px 24px;
+    }
+    .active-category-hero h2 {
+        font-size: 1.7rem;
+    }
+}
