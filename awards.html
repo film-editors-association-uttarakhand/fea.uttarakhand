@@ -4,12 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Titles | FEA</title>
+    <link rel="icon" type="image/jpeg" href="1000021500-modified.png">
+    <meta property="og:title" content="Titles | FEA Uttarakhand">
+    <meta property="og:description" content="Official Member Recognition Directory and Association Titles of FEA Uttarakhand.">
+    <meta property="og:image" content="1000021500-modified.jpg">
+    <meta property="og:type" content="website">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <header>
     <a href="index.html" class="logo-link">
-        <img src="1000021500-modified.png" alt="FEA Logo" class="header-logo-img">
+        <img src="1000021500-modified.jpg" alt="FEA Logo" class="header-logo-img">
         <div class="logo">FEA <span>Uttarakhand</span></div>
     </a>
 
@@ -27,6 +32,7 @@
             <li><a href="awards.html" class="active">Titles</a></li>
             <li><a href="voting.html">Voting 2026</a></li>
             <li><a href="certifications.html">Certifications</a></li>
+            <li><a href="verify.html">Verify ID</a></li>
             <li><a href="#" class="join-trigger">Join FEA</a></li>
         </ul>
     </nav>
@@ -60,6 +66,7 @@
             <p style="color: var(--text-muted);">Comprehensive list of all individual member Titles (2022 - Present).</p>
         </div>
         
+        <p id="awards-empty-state" class="empty-search-msg" style="display: none;">No matching members, roles, or titles found.</p>
         <div class="member-awards-grid">
 <!-- Committee -->
             <div class="member-award-card">
@@ -88,7 +95,7 @@
                 </div>
             </div>
             <div class="member-award-card">
-                <h4>Sumit</h4><p class="role">Secretary</p>
+                <h4>Sumit</h4><p class="role">General Secretary</p>
                 <div class="award-tags">
                     <span class="tag">🏆 Outstanding Contribution 2025</span>
                     <span class="tag">🏆 Administrative Pillar 2024</span>
@@ -179,7 +186,7 @@
 
             <!-- Video Editing -->
             <div class="member-award-card">
-                <h4>Sarvesh Kushwaha</h4><p class="role">Executive Director / Senior Editor</p>
+                <h4>Sarvesh Kushwaha</h4><p class="role">Secretary & Executive Director</p>
                 <div class="award-tags">
                     <span class="tag">🏆 Best Video Editor 2025</span>
                     <span class="tag">🏆 Best Video Editor 2024</span>
@@ -436,7 +443,7 @@
     <!-- About Us Modal -->
     <div id="about-modal" class="modal-overlay">
         <div class="modal-content" style="text-align: center;">
-            <span class="close-btn" id="close-about-modal">&times;</span>
+            <span class="close-btn" id="close-about-modal">×</span>
             <div class="modal-header">
                 <h2 id="about-modal-title">Title</h2>
                 <div class="divider" style="margin-bottom: 20px;"></div>
@@ -450,14 +457,14 @@
     <!-- Join FEA Modal -->
     <div id="join-modal" class="modal-overlay">
         <div class="modal-content glass-panel" style="text-align: center;">
-            <span class="close-btn" id="close-join-modal">&times;</span>
+            <span class="close-btn" id="close-join-modal">×</span>
             <div class="modal-header">
                 <h2>Join FEA Uttarakhand</h2>
                 <p style="color: var(--accent-gold); font-size: 0.9rem; margin-top: 5px;">Become a part of the state's largest post-production community.</p>
                 <div class="divider" style="margin-bottom: 20px;"></div>
             </div>
             <div class="modal-body">
-                <form id="join-form" action="https://formspree.io/f/xljgoepk" method="POST" style="display: flex; flex-direction: column; gap: 15px; text-align: left;">
+                <form id="join-form" action="https://formspree.io/f/mdeeelgj" method="POST" style="display: flex; flex-direction: column; gap: 15px; text-align: left;">
                     <input type="text" name="name" placeholder="Full Name" required class="glass-input">
                     <input type="email" name="email" placeholder="Email Address" required class="glass-input">
                     <select name="role" required class="glass-input">
@@ -482,18 +489,14 @@
                 <p style="color: var(--text-muted); font-size: 0.85rem;">Sahastradhara Road, Dehradun, UK 248013</p>
             </div>
             <div>
-                <h4 style="color: #fff; margin-bottom: 10px; font-size: 1rem;">Contact & Connect</h4>
-                <p style="color: var(--text-muted); font-size: 0.85rem;">📧fea.uttarakhand@gmail.com</p>
-                <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 10px;">📞 NA</p>
-                <div style="display: flex; gap: 15px;">
-                    <a href="#" style="color: var(--accent-gold); text-decoration: none; font-weight: bold;">Instagram</a>
-                    <a href="#" style="color: var(--accent-gold); text-decoration: none; font-weight: bold;">LinkedIn</a>
-                    <a href="#" style="color: var(--accent-gold); text-decoration: none; font-weight: bold;">YouTube</a>
-                </div>
+                <h4 style="color: #fff; margin-bottom: 10px; font-size: 1rem;">Contact</h4>
+                <p style="color: var(--text-muted); font-size: 0.85rem;">
+                    📧 <a href="mailto:fea.uttarakhand@gmail.com" style="color: var(--text-muted); text-decoration: none;">fea.uttarakhand@gmail.com</a>
+                </p>
             </div>
         </div>
         <div class="divider" style="width: 100%; opacity: 0.2; margin-bottom: 20px;"></div>
-        <p>&copy; 2026 Film Editor's Association. All Rights Reserved.</p>
+        <p>© 2021-2026 Film Editor's Association. All Rights Reserved.</p>
     </footer>
     <script src="script.js"></script>
 </body>
