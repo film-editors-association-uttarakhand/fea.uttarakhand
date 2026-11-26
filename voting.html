@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026 Title Voting | FEA Uttarakhand</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+    <a href="index.html" class="logo-link">
+        <img src="1000021500-modified.png" alt="FEA Logo" class="header-logo-img">
+        <div class="logo">FEA <span>Uttarakhand</span></div>
+    </a>
+
+    <div class="menu-toggle" id="mobile-menu">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+    </div>
+
+    <nav class="nav-container">
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="#" class="about-trigger" data-type="intro">About Us</a></li>
+            <li><a href="index.html#masterminds">Masterminds</a></li>
+            <li><a href="awards.html">Titles</a></li>
+            <li><a href="voting.html" class="active">Voting 2026</a></li>
+            <li><a href="certifications.html">Certifications</a></li>
+            <li><a href="verify.html">Verify ID</a></li>
+            <li><a href="#" class="join-trigger">Join FEA</a></li>
+        </ul>
+    </nav>
+</header>
+
+<div class="page-header">
+    <h1>FEA Titles 2026 — Live Voting</h1>
+    <p style="color: var(--text-muted); margin-top: 10px;">Select any category banner below to view nominees and cast your vote.</p>
+    <div class="divider"></div>
+</div>
+
+<!-- VIEW 1: ALL CATEGORY BANNERS -->
+<section id="banners-view">
+    <div class="voting-controls">
+        <div class="voting-stats-bar">
+            <div class="stat-pill">Total Votes Cast: <strong id="total-votes-count">0</strong></div>
+            <div class="stat-pill">Categories: <strong id="total-categories-count">0</strong></div>
+        </div>
+
+        <div class="filter-tabs">
+            <button class="filter-btn active" data-directorate="all">All Categories</button>
+            <button class="filter-btn" data-directorate="Editorial Directorate">Video Editing</button>
+            <button class="filter-btn" data-directorate="Creative Directorate">Graphic Design</button>
+        </div>
+
+        <input type="text" id="category-search" class="vote-search" placeholder="Search category or nominee name...">
+    </div>
+
+    <div id="category-banners-grid" class="category-banners-grid"></div>
+</section>
+
+<!-- VIEW 2: DEDICATED CATEGORY VOTING INTERFACE -->
+<section id="category-voting-view" class="category-voting-view">
+    <button id="back-to-banners" class="back-btn">← Back to All Categories</button>
+
+    <div class="active-category-hero">
+        <div>
+            <span id="active-cat-directorate" class="banner-dir-tag">Directorate</span>
+            <h2 id="active-cat-title">Category Title</h2>
+            <p style="color: var(--text-muted); font-size: 0.9rem;">1 vote allowed per category • Real-time results below</p>
+        </div>
+        <div class="live-indicator">
+            <span class="live-dot"></span>
+            <span>Live Votes: <strong id="active-cat-votes">0</strong></span>
+        </div>
+    </div>
+
+    <div id="category-nominees-grid" class="voting-grid"></div>
+</section>
+
+<!-- About Us Modal -->
+<div id="about-modal" class="modal-overlay">
+    <div class="modal-content" style="text-align: center;">
+        <span class="close-btn" id="close-about-modal">×</span>
+        <div class="modal-header">
+            <h2 id="about-modal-title">Title</h2>
+            <div class="divider" style="margin-bottom: 20px;"></div>
+        </div>
+        <div class="modal-body">
+            <p id="about-modal-desc" class="main-desc">Details will appear here...</p>
+        </div>
+    </div>
+</div>
+
+<!-- Join FEA Modal -->
+<div id="join-modal" class="modal-overlay">
+    <div class="modal-content glass-panel" style="text-align: center;">
+        <span class="close-btn" id="close-join-modal">×</span>
+        <div class="modal-header">
+            <h2>Join FEA Uttarakhand</h2>
+            <p style="color: var(--accent-gold); font-size: 0.9rem; margin-top: 5px;">Become a part of the state's largest post-production community.</p>
+            <div class="divider" style="margin-bottom: 20px;"></div>
+        </div>
+        <div class="modal-body">
+            <form id="join-form" action="https://formspree.io/f/mdeeelgj" method="POST" style="display: flex; flex-direction: column; gap: 15px; text-align: left;">
+                <input type="text" name="name" placeholder="Full Name" required class="glass-input">
+                <input type="email" name="email" placeholder="Email Address" required class="glass-input">
+                <select name="role" required class="glass-input">
+                    <option value="" disabled selected>Select Membership Type / Directorate</option>
+                    <option value="member">General Member</option>
+                    <option value="video">Video Editing / Post-Production (requires exp.)</option>
+                    <option value="design">Graphic Design / Art (requires exp.)</option>
+                    <option value="vfx">VFX / Compositing / Tech (requires exp.)</option>
+                    <option value="audio">Audio / SFX (requires exp.)</option>
+                </select>
+                <input type="url" name="portfolio" placeholder="Portfolio / Reel Link (Optional)" class="glass-input">
+                <button type="submit" class="glass-btn">Submit Application</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div id="vote-toast" class="vote-toast"></div>
+
+<footer>
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-around; text-align: left; max-width: 1200px; margin: 0 auto; gap: 20px; padding-bottom: 20px;">
+            <div>
+                <div class="footer-logo"><span class="highlight">FEA</span> UTTARAKHAND</div>
+                <p style="color: var(--text-muted); font-size: 0.85rem;">Sahastradhara Road, Dehradun, UK 248013</p>
+            </div>
+            <div>
+                <h4 style="color: #fff; margin-bottom: 10px; font-size: 1rem;">Contact</h4>
+                <p style="color: var(--text-muted); font-size: 0.85rem;">
+                    📧 <a href="mailto:fea.uttarakhand@gmail.com" style="color: var(--text-muted); text-decoration: none;">fea.uttarakhand@gmail.com</a>
+                </p>
+            </div>
+        </div>
+        <div class="divider" style="width: 100%; opacity: 0.2; margin-bottom: 20px;"></div>
+        <p>© 2021-2026 Film Editor's Association. All Rights Reserved.</p>
+    </footer>
+
+<script src="script.js"></script>
+<script src="voting.js"></script>
+</body>
+</html>
