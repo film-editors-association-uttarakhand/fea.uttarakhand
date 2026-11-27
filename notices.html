@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Official Notices | FEA Uttarakhand</title>
+    <link rel="icon" type="image/png" href="1000021500-modified.png">
+    <meta property="og:title" content="Official Notices | FEA Uttarakhand">
+    <meta property="og:description" content="Official circulars, directives, and announcements from the Film Editor's Association, Uttarakhand.">
+    <meta property="og:image" content="1000021500-modified.png">
+    <meta property="og:type" content="website">
+    <link rel="stylesheet" href="style.css?v=8">
+</head>
+<body class="theme-notices">
+<header>
+    <a href="index.html" class="logo-link">
+        <img src="1000021500-modified.png" alt="FEA Logo" class="header-logo-img">
+        <div class="logo">FEA <span>Uttarakhand</span></div>
+    </a>
+
+    <div class="menu-toggle" id="mobile-menu">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+    </div>
+
+    <nav class="nav-container">
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="#" class="about-trigger" data-type="intro">About Us</a></li>
+            <li><a href="index.html#masterminds">Masterminds</a></li>
+            <li><a href="notices.html" class="active">Notices</a></li>
+            <li><a href="awards.html">Titles</a></li>
+            <li><a href="voting.html">Voting 2026</a></li>
+            <li><a href="certifications.html">Certifications</a></li>
+            <li><a href="verify.html">Verify ID</a></li>
+            <li><a href="#" class="join-trigger">Join FEA</a></li>
+        </ul>
+    </nav>
+</header>
+
+<div class="page-header">
+    <h1>Official Notice Board</h1>
+    <p style="color: var(--text-muted); margin-top: 10px;">Official circulars, directorate directives, and association announcements.</p>
+    <div class="divider"></div>
+</div>
+
+<div class="voting-controls">
+    <div class="voting-stats-bar">
+        <div class="stat-pill">Total Notices: <strong id="notices-total-count">0</strong></div>
+        <div class="stat-pill">Active Circulars: <strong id="notices-active-count">0</strong></div>
+    </div>
+
+    <!-- Admin Control Strip -->
+    <div class="admin-action-bar">
+        <div id="admin-session-info" class="admin-session-pill" style="display: none;">
+            <span class="live-dot"></span>
+            <span id="admin-session-label">Logged in</span>
+        </div>
+        <div class="admin-btn-group">
+            <button id="open-admin-login-btn" class="share-ballot-btn">🔒 Admin Login</button>
+            <button id="open-post-notice-btn" class="glass-btn" style="display: none;">+ Publish New Notice</button>
+            <button id="admin-logout-btn" class="back-btn" style="display: none; margin-bottom: 0;">Logout</button>
+        </div>
+    </div>
+
+    <div class="filter-tabs" id="notices-filters">
+        <button class="filter-btn active" data-wing="all">All Notices</button>
+        <button class="filter-btn" data-wing="Core Committee">Core Committee</button>
+        <button class="filter-btn" data-wing="Editorial Directorate">Editorial Directorate</button>
+        <button class="filter-btn" data-wing="Graphic Designer">Graphic Designer</button>
+    </div>
+
+    <input type="text" id="notices-search" class="vote-search" placeholder="Search notice title, issuer name, or keyword...">
+</div>
+
+<section class="notice-section" style="padding-bottom: 80px;">
+    <p id="notices-empty-state" class="empty-search-msg" style="display: none;">No matching notices found.</p>
+    <div id="notices-grid" class="notice-grid"></div>
+</section>
+
+<!-- View Full Notice Modal -->
+<div id="view-notice-modal" class="modal-overlay">
+    <div class="modal-content" style="max-width: 740px; text-align: left;">
+        <span class="close-btn" id="close-view-notice">×</span>
+        <div class="notice-modal-meta">
+            <span id="view-notice-badge" class="notice-badge">Circular</span>
+            <span id="view-notice-date" class="notice-date">DATE</span>
+        </div>
+        <h2 id="view-notice-title" style="font-size: 1.65rem; color: #fff; line-height: 1.3;">Notice Title</h2>
+        <div class="divider" style="margin: 16px 0 0;"></div>
+        <p id="view-notice-body" class="notice-modal-body-text"></p>
+        <div class="notice-issuer-box">
+            <span id="view-notice-wing" class="notice-wing-tag">Wing</span>
+            <div id="view-notice-issuer" class="notice-issuer-name"></div>
+        </div>
+        <div class="notice-modal-footer">
+            <div id="view-notice-link-wrap"></div>
+            <div id="view-notice-admin-wrap" class="notice-admin-btns"></div>
+        </div>
+    </div>
+</div>
+
+<!-- Admin Login Modal -->
+<div id="admin-login-modal" class="modal-overlay">
+    <div class="modal-content" style="max-width: 500px; text-align: center;">
+        <span class="close-btn" id="close-admin-login">×</span>
+        <div class="modal-header">
+            <h2>Admin Portal Login</h2>
+            <p style="color: var(--accent-gold); font-size: 0.85rem; margin-top: 6px;">Authorized FEA Uttarakhand Officials Only</p>
+            <div class="divider" style="margin-bottom: 24px;"></div>
+        </div>
+        <form id="admin-login-form" style="display: flex; flex-direction: column; gap: 15px; text-align: left;">
+            <label class="admin-field-label">Admin Wing</label>
+            <select id="admin-role-select" class="glass-input" required>
+                <option value="" disabled selected>Select Admin Category</option>
+                <option value="Core Committee">1. Core Committee Member</option>
+                <option value="Editorial Directorate">2. Editorial Directorate</option>
+                <option value="Graphic Designer">3. Graphic Designer</option>
+            </select>
+
+            <label class="admin-field-label">Admin Login ID</label>
+            <input type="text" id="admin-id-input" class="glass-input" placeholder="e.g. FEA-ADMIN-CC" required autocomplete="off">
+
+            <label class="admin-field-label">Passcode</label>
+            <div class="password-input-wrap">
+                <input type="password" id="admin-pass-input" class="glass-input" placeholder="Enter Admin Passcode" required style="padding-right: 76px;">
+                <button type="button" id="toggle-admin-pass" class="toggle-pass-btn" aria-label="Show password">Show</button>
+            </div>
+
+            <p id="admin-login-error" class="admin-error-msg" style="display: none;"></p>
+            <button type="submit" class="glass-btn" style="width: 100%; margin-top: 6px;">Verify & Login</button>
+        </form>
+    </div>
+</div>
+
+<!-- Publish New Notice Modal -->
+<div id="post-notice-modal" class="modal-overlay">
+    <div class="modal-content" style="max-width: 620px; text-align: left;">
+        <span class="close-btn" id="close-post-notice">×</span>
+        <div class="modal-header" style="text-align: center;">
+            <h2 id="post-modal-heading">Publish Official Notice</h2>
+            <p id="publisher-wing-badge" style="color: var(--accent-gold); font-size: 0.85rem; margin-top: 6px; letter-spacing: 1.5px; text-transform: uppercase;"></p>
+            <div class="divider" style="margin-bottom: 24px;"></div>
+        </div>
+        <form id="post-notice-form" style="display: flex; flex-direction: column; gap: 14px;">
+            <div>
+                <label class="admin-field-label">Who is posting this notice? (Full Name) *</label>
+                <input type="text" id="notice-poster-name" class="glass-input" placeholder="Enter your full name (e.g. Sarvesh Kushwaha)" required>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+                <div>
+                    <label class="admin-field-label">Designation (Optional)</label>
+                    <input type="text" id="notice-poster-title" class="glass-input" placeholder="e.g. Secretary / Executive Director">
+                </div>
+                <div>
+                    <label class="admin-field-label">Notice Tag *</label>
+                    <select id="notice-badge-select" class="glass-input" required>
+                        <option value="Circular">Circular</option>
+                        <option value="Mandatory">Mandatory</option>
+                        <option value="Active">Active</option>
+                        <option value="Urgent">Urgent</option>
+                        <option value="Workshop">Workshop</option>
+                        <option value="Open">Open</option>
+                    </select>
+                </div>
+            </div>
+
+            <div>
+                <label class="admin-field-label">Notice Headline *</label>
+                <input type="text" id="notice-title-input" class="glass-input" placeholder="Enter official notice headline" required>
+            </div>
+
+            <div>
+                <label class="admin-field-label">Notice Details *</label>
+                <textarea id="notice-body-input" class="glass-input" rows="4" placeholder="Write the complete notice details, dates, or instructions..." required style="resize: vertical;"></textarea>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+                <div>
+                    <label class="admin-field-label">Action Link URL (Optional)</label>
+                    <input type="text" id="notice-link-url" class="glass-input" placeholder="e.g. verify.html or https://...">
+                </div>
+                <div>
+                    <label class="admin-field-label">Action Link Label (Optional)</label>
+                    <input type="text" id="notice-link-label" class="glass-input" placeholder="e.g. Open Portal ↗">
+                </div>
+            </div>
+
+            <button type="submit" id="post-modal-submit-btn" class="glass-btn" style="width: 100%; margin-top: 8px;">Publish Notice Live</button>
+        </form>
+    </div>
+</div>
+
+<!-- About Us Modal -->
+<div id="about-modal" class="modal-overlay">
+    <div class="modal-content" style="text-align: center;">
+        <span class="close-btn" id="close-about-modal">×</span>
+        <div class="modal-header">
+            <h2 id="about-modal-title">Title</h2>
+            <div class="divider" style="margin-bottom: 20px;"></div>
+        </div>
+        <div class="modal-body">
+            <p id="about-modal-desc" class="main-desc">Details will appear here...</p>
+        </div>
+    </div>
+</div>
+
+<!-- Join FEA Modal -->
+<div id="join-modal" class="modal-overlay">
+    <div class="modal-content glass-panel" style="text-align: center;">
+        <span class="close-btn" id="close-join-modal">×</span>
+        <div class="modal-header">
+            <h2>Join FEA Uttarakhand</h2>
+            <p style="color: var(--accent-gold); font-size: 0.9rem; margin-top: 5px;">Become a part of the state's largest post-production community.</p>
+            <div class="divider" style="margin-bottom: 20px;"></div>
+        </div>
+        <div class="modal-body">
+            <form id="join-form" action="https://formspree.io/f/mdeeelgj" method="POST" style="display: flex; flex-direction: column; gap: 14px; text-align: left;">
+                    <div class="join-form-row">
+                        <input type="text" name="name" placeholder="Full Name *" required class="glass-input">
+                        <input type="email" name="email" placeholder="Email Address *" required class="glass-input">
+                    </div>
+
+                    <div class="join-form-row">
+                        <select name="district" required class="glass-input">
+                            <option value="" disabled selected>Select District *</option>
+                            <option value="Almora">Almora</option>
+                            <option value="Bageshwar">Bageshwar</option>
+                            <option value="Chamoli">Chamoli</option>
+                            <option value="Champawat">Champawat</option>
+                            <option value="Dehradun">Dehradun</option>
+                            <option value="Haridwar">Haridwar</option>
+                            <option value="Nainital">Nainital</option>
+                            <option value="Pauri Garhwal">Pauri Garhwal</option>
+                            <option value="Pithoragarh">Pithoragarh</option>
+                            <option value="Rudraprayag">Rudraprayag</option>
+                            <option value="Tehri Garhwal">Tehri Garhwal</option>
+                            <option value="Udham Singh Nagar">Udham Singh Nagar</option>
+                            <option value="Uttarkashi">Uttarkashi</option>
+                            <option value="Other">Other</option>
+                        </select>
+
+                        <select name="experience" required class="glass-input">
+                            <option value="" disabled selected>Years of Experience *</option>
+                            <option value="Student / Fresher">Student / Fresher</option>
+                            <option value="1-2 Years">1–2 Years</option>
+                            <option value="3-5 Years">3–5 Years</option>
+                            <option value="5+ Years">5+ Years</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <select name="role" required class="glass-input">
+                            <option value="" disabled selected>Select Membership Type / Directorate *</option>
+                            <option value="General Member">General Member</option>
+                            <option value="Editorial Directorate (FEA-ED)">Editorial Directorate (FEA-ED)</option>
+                            <option value="Creative Directorate (FEA-GD)">Creative Directorate (FEA-GD)</option>
+                            <option value="VFX, Audio & Technical Specialist">VFX, Audio &amp; Technical Specialist</option>
+                            <option value="Studio / Production House Affiliate">Studio / Production House Affiliate</option>
+                        </select>
+                        <p class="join-exp-note">* Note: All categories except General Member require up to 3 years of experience.</p>
+                    </div>
+
+                    <div>
+                        <label class="join-field-label">Primary Software / Tools</label>
+                        <div class="join-tools-grid">
+                            <label class="join-tool-chip"><input type="checkbox" name="tools[]" value="Premiere Pro"><span>Premiere Pro</span></label>
+                            <label class="join-tool-chip"><input type="checkbox" name="tools[]" value="DaVinci Resolve"><span>DaVinci Resolve</span></label>
+                            <label class="join-tool-chip"><input type="checkbox" name="tools[]" value="After Effects"><span>After Effects</span></label>
+                            <label class="join-tool-chip"><input type="checkbox" name="tools[]" value="Nuke"><span>Nuke</span></label>
+                            <label class="join-tool-chip"><input type="checkbox" name="tools[]" value="Photoshop"><span>Photoshop</span></label>
+                            <label class="join-tool-chip"><input type="checkbox" name="tools[]" value="Illustrator"><span>Illustrator</span></label>
+                            <label class="join-tool-chip"><input type="checkbox" name="tools[]" value="Blender"><span>Blender</span></label>
+                            <label class="join-tool-chip"><input type="checkbox" name="tools[]" value="Other"><span>Other</span></label>
+                        </div>
+                    </div>
+
+                    <input type="url" name="portfolio" placeholder="Portfolio / Reel Link (Optional)" class="glass-input">
+
+                    <textarea name="bio" rows="2" required class="glass-input" placeholder="Short Bio / Reason for Joining — What do you specialize in or how would you like to contribute? *" style="resize: vertical;"></textarea>
+
+                    <label class="join-declaration">
+                        <input type="checkbox" name="declaration" value="Agreed" required>
+                        <span>I confirm my details are accurate and agree to abide by the FEA Uttarakhand Code of Conduct.</span>
+                    </label>
+
+                    <button type="submit" class="glass-btn">Submit Application</button>
+                </form>
+        </div>
+    </div>
+</div>
+
+<div id="vote-toast" class="vote-toast"></div>
+
+<footer>
+    <div style="display: flex; flex-wrap: wrap; justify-content: space-around; text-align: left; max-width: 1200px; margin: 0 auto; gap: 20px; padding-bottom: 20px;">
+        <div>
+            <div class="footer-logo"><span class="highlight">FEA</span> UTTARAKHAND</div>
+            <p style="color: var(--text-muted); font-size: 0.85rem;">Sahastradhara Road, Dehradun, UK 248013</p>
+        </div>
+        <div>
+            <h4 style="color: #fff; margin-bottom: 10px; font-size: 1rem;">Contact</h4>
+            <p style="color: var(--text-muted); font-size: 0.85rem;">
+                📧 <a href="mailto:fea.uttarakhand@gmail.com" style="color: var(--text-muted); text-decoration: none;">fea.uttarakhand@gmail.com</a>
+            </p>
+        </div>
+    </div>
+    <div class="divider" style="width: 100%; opacity: 0.2; margin-bottom: 20px;"></div>
+    <p>© 2021-2026 Film Editor's Association. All Rights Reserved.</p>
+</footer>
+
+<script src="script.js"></script>
+<script src="notices.js?v=6"></script>
+</body>
+</html>
